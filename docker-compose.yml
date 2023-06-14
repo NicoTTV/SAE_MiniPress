@@ -1,0 +1,75 @@
+version: "3"
+
+networks:
+  minipress.net:
+    driver: bridge
+
+services:
+  frontEnd:
+    image: nginx:latest
+    volumes:
+      - ./minipress.frontend:/usr/share/nginx/html
+      - ./shared/img:/usr/share/nginx/html/img
+    ports:
+      - "41000:80"
+    networks:
+      - minipress.net
+    depends_on:
+      - db
+
+  webApp:
+    image: canals/php:latest
+    volumes:
+      - ./minipress.appli/public:/var/www/html
+      - ./shared/img:/var/www/html/img
+      - ./minipress.appli/src:/var/www/src
+    ports:
+      - "41001:80"
+    networks:
+      - minipress.net
+    depends_on:
+      - db
+
+  api:
+    image: canals/php:latest
+    volumes:
+      - ./minipress.api/public:/var/www/html
+      - ./shared/img:/var/www/html/img
+      - ./minipress.api/src:/var/www/src
+    ports:
+      - "41004:80"
+    networks:
+      - minipress.net
+    depends_on:
+      - db
+
+ # mobileApp:
+  #  image: canals/php:latest
+   # volumes:
+    #  - ?
+   # ports:
+    #  - "41005:80"
+   # networks:
+    #  - giftbox.net
+   # depends_on:
+    #  - db
+
+  db:
+    image: mariadb:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "41002:3306"
+    networks:
+      minipress.net:
+        aliases:
+          - sql.db
+
+  adminer:
+    image: adminer
+    ports:
+      - "41003:8080"
+    networks:
+      - minipress.net
