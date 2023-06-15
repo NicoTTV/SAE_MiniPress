@@ -104,7 +104,7 @@ main {
     align-items: center;
 }
 
-.sign-in {
+.sign {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -113,11 +113,15 @@ main {
     background-color: var(--secondary-color);
     border-radius: 10px;
     box-shadow: 0 2px 15px 1px var(--shadow-color);
-    margin-top: 100px;
+    margin-top: 60px;
     padding: 20px;
 }
 
-#sign-in {
+.sign-up {
+    height: 600px;
+}
+
+#sign {
     display: grid;
     grid-template-rows: 1fr 1fr 1fr 1fr;
     width: 100%;
@@ -125,13 +129,13 @@ main {
     gap: 20px;
 }
 
-.sign-in .title {
+.sign .title {
     font-size: 1.5em;
     margin-bottom: 20px;
     text-align: center;
 }
 
-.sign-in .input-box {
+.sign .input-box {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -139,7 +143,7 @@ main {
     width: 100%;
 }
 
-.sign-in .input-box .input-box-item {
+.sign .input-box .input-box-item {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -148,7 +152,7 @@ main {
     width: 100%;
 }
 
-.sign-in input {
+.sign input {
     width: 100%;
     margin-right: 20px;
     font-size: 1.1em;
@@ -182,4 +186,8 @@ a {
     text-decoration: none;
     color: var(--color-font);
     transition: all .2s ease;
+}
+
+.icon {
+    color: var(--color-font);
 }
