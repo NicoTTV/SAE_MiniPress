@@ -1,13 +1,10 @@
 <?php
 
-use actions\CategorieAction;
-use actions\ArticleAction;
-use actions\CateArctAction;
-use actions\ArticleCompletAction;
-use actions\ArticleAuteurAction;
-
 use minipress\api\actions\ArticleAction;
 use minipress\api\actions\CategorieAction;
+use minipress\api\actions\CateArctAction;
+use minipress\api\actions\ArticleCompletAction;
+use minipress\api\actions\ArticleAuteurAction;
 use Slim\App;
 
 return function (App $app) {
