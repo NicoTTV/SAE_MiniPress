@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace models;
+namespace minipress\api\models;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-// Inclure les fichiers nécessaires pour Eloquent
-require_once __DIR__ . '/../vendor/autoload.php';
+
 class User extends Eloquent
 {
     protected $table = "user";

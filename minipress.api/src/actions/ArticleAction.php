@@ -1,13 +1,15 @@
 <?php
 
-namespace actions;
+namespace minipress\api\actions;
 
-use models\Article;
 
-require_once __DIR__ . '/../models/article.php';
+
+use minipress\api\models\Article;
+use Slim\Psr7\Request;
+use Slim\Psr7\Response;
 
 class ArticleAction {
-    public function __invoke($request, $response, $args) {
+    public function __invoke(Request $request,Response $response, $args):Response {
         // Liste des catégories
         $categories = Article::all();
 
@@ -18,8 +20,6 @@ class ArticleAction {
         $response->getBody()->write($json);
 
         // Définir le type de contenu de la réponse comme JSON
-        $response = $response->withHeader('Content-Type', 'application/json');
-
-        return $response;
+        return $response->withHeader('Content-Type', 'application/json');
     }
 }
