@@ -73,3 +73,5 @@ services:
       - "41003:8080"
     networks:
       - minipress.net
+    depends_on:
+      - db

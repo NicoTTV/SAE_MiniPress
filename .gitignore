@@ -1,3 +1,5 @@
 .env
 /minipress.appli/src/vendor
 /minipress.api/src/vendor
+/minipress.appli/src/conf/gift.db.conf.ini
+/minipress.api/src/composer.lock
