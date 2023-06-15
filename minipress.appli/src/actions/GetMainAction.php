@@ -18,7 +18,11 @@ class GetMainAction extends AbstractAction
         $twig = Twig::fromRequest($rq);
         try {
             return $twig->render($rs, 'acceuil.twig');
-        } catch (LoaderError|RuntimeError|SyntaxError $e) {
+        } catch (LoaderError $e) {
+            throw new HttpInternalServerErrorException($rq, $e->getMessage());
+        } catch (RuntimeError $e) {
+            throw new HttpInternalServerErrorException($rq, $e->getMessage());
+        } catch (SyntaxError $e) {
             throw new HttpInternalServerErrorException($rq, $e->getMessage());
         }
     }
