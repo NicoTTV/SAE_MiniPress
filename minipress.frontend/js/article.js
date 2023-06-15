@@ -4,13 +4,14 @@
 
 
 /* Récupération des articles */
-fetch('https://exemple.com/api/articles') // TODO: Remplacer l'URL par celle de l'API MiniPress.core
+fetch('http://localhost:41004/api/articles')
     .then(response => response.json())
     .then(data => {
         let articles = data;
 
         /* Tri des articles par date chronologique (dateCreation) dans l'ordre inverse */
-        articles.sort((a, b) => new Date(b.dateCreation) - new Date(a.dateCreation));
+        // articles.sort((a, b) => new Date(b.dateCreation) - new Date(a.dateCreation));
+        // articles = array_reverse(articles.sort());
 
         /* Affichage des articles dans l'interface  */
         const articleList = document.getElementById('article-list');
@@ -21,17 +22,17 @@ fetch('https://exemple.com/api/articles') // TODO: Remplacer l'URL par celle de 
 
             /* Titre */
             const title = document.createElement('h2');
-            title.textContent = article.title;
+            title.textContent = article.titre;
             articleItem.appendChild(title);
 
             /* Date de création */
             const creationDate = document.createElement('p');
-            creationDate.textContent = `Date de création : ${article.dateCreation}`;
+            creationDate.textContent = `Date de création : ${article.date_de_creation}`;
             articleItem.appendChild(creationDate);
 
             /* Auteur */
             const author = document.createElement('p');
-            author.textContent = `Auteur : ${article.author}`;
+            author.textContent = `Auteur : ${article.id_user}`;
             articleItem.appendChild(author);
 
             /* Ajout de l'article à la liste */
@@ -44,7 +45,7 @@ fetch('https://exemple.com/api/articles') // TODO: Remplacer l'URL par celle de 
 
 
 /* Récupération des catégories */
-fetch('https://exemple.com/api/categories') // TODO: Remplacer l'URL par celle de l'API MiniPress.core
+fetch('http://localhost:41004/api/categories')
     .then(response => response.json())
     .then(data => {
         const categories = data;
@@ -55,7 +56,8 @@ fetch('https://exemple.com/api/categories') // TODO: Remplacer l'URL par celle d
         /* Parcours des catégories et création des éléments <li> correspondants */
         categories.forEach(category => {
             const categoryItem = document.createElement('li');
-            categoryItem.textContent = category.name;
+            categoryItem.textContent = category.titre;
+            category.textContent = categories;
 
             /* Ajout de chaque élément <li> à la liste des catégories */
             categoryList.appendChild(categoryItem);
@@ -75,7 +77,7 @@ categoryList.addEventListener('click', event => {
         const categoryId = event.target.dataset.categoryId; // Récupérez l'ID de la catégorie sélectionnée
 
         /* Récupération des articles de la catégorie sélectionnée */
-        fetch(`https://exemple.com/api/categories/${categoryId}/articles`) // TODO: Remplacer l'URL par celle de l'API MiniPress.core
+        fetch(`http://localhost:41004/api/categories/${categoryId}/articles`)
             .then(response => response.json())
             .then(data => {
                 const articles = data;
