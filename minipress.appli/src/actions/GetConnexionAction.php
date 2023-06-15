@@ -10,14 +10,15 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
-class GetMainAction extends AbstractAction
+class GetConnexionAction extends AbstractAction
 {
 
     public function __invoke(Request $rq, Response $rs, array $args): Response
     {
+
         $twig = Twig::fromRequest($rq);
         try {
-            return $twig->render($rs, 'acceuil.twig');
+            return $twig->render($rs, 'user/connexion.twig');
         } catch (LoaderError $e) {
             throw new HttpInternalServerErrorException($rq, $e->getMessage());
         } catch (RuntimeError $e) {
