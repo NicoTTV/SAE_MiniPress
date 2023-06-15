@@ -5,7 +5,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../actions/CategorieAction.php';
-
+require_once __DIR__ . '/../actions/ArticleAction.php';
 
 // Configuration de la connexion à la base de données
 $host = 'db';

@@ -9,10 +9,10 @@ require_once __DIR__ . '/../models/article.php';
 class ArticleAction {
     public function __invoke($request, $response, $args) {
         // Liste des catégories
-        $categories = Article::all();
+        $articles = Article::select('titre','date_de_creation','id_user')->get()->toArray();
 
         // Convertir le tableau en JSON
-        $json = json_encode($categories);
+        $json = json_encode($articles);
 
         // Ajouter le contenu JSON à la réponse
         $response->getBody()->write($json);
