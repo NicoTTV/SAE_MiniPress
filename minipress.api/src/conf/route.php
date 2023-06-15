@@ -6,7 +6,11 @@ use actions\CateArctAction;
 use actions\ArticleCompletAction;
 use actions\ArticleAuteurAction;
 
-return function (\Slim\App $app) {
+use minipress\api\actions\ArticleAction;
+use minipress\api\actions\CategorieAction;
+use Slim\App;
+
+return function (App $app) {
     $app->get('/api/categories', CategorieAction::class);
     $app->get('/api/categories/{id}/articles', CateArctAction::class);
     $app->get('/api/articles', ArticleAction::class);

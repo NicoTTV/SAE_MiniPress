@@ -1,0 +1,98 @@
+html, body, main {
+    margin: 0;
+    padding: 0;
+    --color-font: #212121;
+    --primary-color: #00ABE4;
+    --secondary-color: #E9F1FA;
+    --warning-color: #FF595A;
+    --over-background-color: #00A0D6;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --color-font-button: #FFFFFF;
+    color: var(--color-font);
+    font-family: 'Roboto', sans-serif;
+}
+
+header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100px;
+    border-bottom: 1px solid #00ABE4;
+    font-size: 1.2em;
+    position: sticky;
+    box-shadow: 0 2px 8px 0px var(--shadow-color);
+}
+
+header nav ul {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+ul li {
+    list-style: none;
+    margin: 0 20px;
+}
+
+nav#nav-app {
+    margin-left: 80px;
+}
+
+li a {
+    text-decoration: none;
+    color: var(--color-font);
+    transition: all .2s ease;
+}
+
+a:hover {
+    color: var(--primary-color);
+    text-shadow: 2px 5px 5px var(--shadow-color);
+}
+
+a.button {
+    text-shadow: none;
+    color: inherit;
+}
+
+input {
+    background-color: var(--secondary-color);
+    border: none;
+    box-shadow: 0 2px 8px 0px var(--shadow-color);
+    transition: box-shadow .2s ease-in-out, letter-spacing .4s ease;
+    outline: none;
+    border-radius: 10px;
+    padding: 10px 15px;
+    font-size: .7em;
+}
+
+input:focus {
+    box-shadow: 0 2px 8px 2px var(--shadow-color);
+    letter-spacing: 1px;
+}
+
+input:hover {
+    box-shadow: 0 2px 8px 2px var(--shadow-color);
+}
+
+a#connexion {
+    background-color: var(--primary-color);
+    color: var(--color-font-button);
+    box-shadow: 0 2px 8px 0px var(--shadow-color);
+    padding: 10px 15px;
+    border-radius: 10px;
+    transition: background-color .2s ease-in-out;
+    margin-left: 60px;
+}
+
+nav#nav-account {
+    margin-left: 100px;
+}
+
+a#connexion:hover {
+    background-color: var(--over-background-color);
+    box-shadow: 0 2px 8px 2px var(--shadow-color);
+}
