@@ -10,8 +10,7 @@ fetch('http://localhost:41004/api/articles')
         let articles = data;
 
         /* Tri des articles par date chronologique (dateCreation) dans l'ordre inverse */
-        // articles.sort((a, b) => new Date(b.dateCreation) - new Date(a.dateCreation));
-        // articles = array_reverse(articles.sort());
+        articles.sort((a, b) => new Date(b.date_de_creation) - new Date(a.date_de_creation));
 
         /* Affichage des articles dans l'interface  */
         const articleList = document.getElementById('article-list');
