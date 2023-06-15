@@ -18,7 +18,9 @@ class PostConnexionAction extends AbstractAction
         $userService = new UserService();
         try {
             $userService->connexion($data);
-        } catch (BadDataUserException|UserNotFoundException $e) {
+        } catch (BadDataUserException $e) {
+            throw new HttpInternalServerErrorException($rq, $e->getMessage());
+        } catch (UserNotFoundException $e) {
             throw new HttpInternalServerErrorException($rq, $e->getMessage());
         }
         return $rs->withHeader('Location', '/')->withStatus(200);
