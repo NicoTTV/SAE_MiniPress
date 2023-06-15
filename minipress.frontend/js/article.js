@@ -1,13 +1,13 @@
 'use strict'
 
-let articles; // Variable qui contiendra les articles récupérés depuis l'API
+// let articles; // Variable qui contiendra les articles récupérés depuis l'API
 
 
 /* Récupération des articles */
 fetch('https://exemple.com/api/articles') // TODO: Remplacer l'URL par celle de l'API MiniPress.core
     .then(response => response.json())
     .then(data => {
-        articles = data;
+        let articles = data;
 
         /* Tri des articles par date chronologique (dateCreation) dans l'ordre inverse */
         articles.sort((a, b) => new Date(b.dateCreation) - new Date(a.dateCreation));
