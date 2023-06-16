@@ -46,21 +46,9 @@ fetch('http://localhost:41004/api/articles')
 /* Récupération des catégories */
 fetch('http://localhost:41004/api/categories')
     .then(response => response.json())
-    .then(data => {
-        const categories = data;
-
-        /* Sélection de l'élément <ul> pour afficher les catégories */
-        const categoryList = document.getElementById('categories');
-
-        /* Parcours des catégories et création des éléments <li> correspondants */
-        categories.forEach(category => {
-            const categoryItem = document.createElement('li');
-            categoryItem.textContent = category.titre;
-            category.textContent = categories;
-
-            /* Ajout de chaque élément <li> à la liste des catégories */
-            categoryList.appendChild(categoryItem);
-        });
+    .then(categories => {
+        /* Affichage initial des catégories dans l'interface */
+        displayCategories(categories);
     })
     .catch(error => {
         console.error('Une erreur s\'est produite lors de la récupération des catégories:', error);
@@ -69,7 +57,6 @@ fetch('http://localhost:41004/api/categories')
 
 /* Sélection de la liste des catégories */
 const categoryList = document.getElementById('categories');
-
 categoryList.addEventListener('click', event => {
     /* Vérifiez si l'élément cliqué est une catégorie */
     if (event.target.tagName === 'LI') {
@@ -107,3 +94,53 @@ categoryList.addEventListener('click', event => {
             });
     }
 });
+
+
+/* Fonction pour mettre à jour l'affichage des articles */
+function updateArticleList(categoryId) {
+    fetch(`http://localhost:41004/api/categories/${categoryId}/articles`)
+        .then(response => response.json())
+        .then(articles => {
+            const articleList = document.getElementById('articles');
+            articleList.innerHTML = '';
+
+            articles.forEach(article => {
+                const articleItem = document.createElement('li');
+                articleItem.textContent = article.titre;
+                articleList.appendChild(articleItem);
+            });
+        })
+        .catch(error => {
+            console.error('Une erreur s\'est produite lors de la récupération des articles de la catégorie:', error);
+        });
+}
+
+
+/* Fonction pour afficher les catégories dans l'interface */
+function displayCategories(categories) {
+    const categoryList = document.getElementById('categories');
+
+    categories.forEach(category => {
+        /* Création d'un lien pour chaque catégorie */
+        const categoryLink = document.createElement('a');
+        categoryLink.textContent = category.titre;
+        categoryLink.href = '#'; // Ajout d'un lien fictif pour le fonctionnement des liens
+
+        /* Attribution de l'ID de catégorie en tant qu'attribut de données pour le lien */
+        categoryLink.dataset.categoryId = category.id;
+
+        /* Ajout d'un gestionnaire d'événement au clic sur le lien de catégorie */
+        categoryLink.addEventListener('click', (event) => {
+            event.preventDefault(); // Empêcher le comportement par défaut du lien
+            const categoryId = event.target.dataset.categoryId;
+            updateArticleList(categoryId);
+        });
+
+        /* Création d'un élément <li> pour contenir le lien de catégorie */
+        const categoryItem = document.createElement('li');
+        categoryItem.appendChild(categoryLink);
+
+        /* Ajout de chaque élément <li> à la liste des catégories */
+        categoryList.appendChild(categoryItem);
+    });
+}
