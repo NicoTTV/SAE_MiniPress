@@ -3,3 +3,5 @@
 /minipress.api/src/vendor
 /minipress.appli/src/conf/gift.db.conf.ini
 /minipress.api/src/composer.lock
+./.idea
+/minipress.appli/src/templates/compiled
