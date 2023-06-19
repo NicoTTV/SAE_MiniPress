@@ -13,4 +13,5 @@ class Article extends Eloquent
     protected $primaryKey = "id_article";
     public $timestamps = false;
     public $incrementing = false;
+    protected $fillable = ['titre'];
 }
