@@ -57,7 +57,7 @@ class UserService
         if (!password_verify($data['password'], $user[0]['password']))
             throw new BadDataUserException("Bad data user : password not valid");
 
-        $_SESSION['user'] = $user;
+        $_SESSION['user'] = serialize($user);
         return true;
     }
 
