@@ -15,11 +15,11 @@ class _ArticlePreview extends State<ArticlePreview> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: const Text('Titre'),
-      subtitle: const Column(
+      title: Text(widget.article.titre),
+      subtitle: Column(
         children: [
-          Text("Date de création"),
-          Text("Auteur")
+          Text(widget.article.dateCreation),
+          Text(widget.article.auteur)
         ],
       ),
       onTap: () {
