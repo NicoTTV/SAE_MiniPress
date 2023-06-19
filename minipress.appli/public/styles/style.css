@@ -191,3 +191,58 @@ a {
 .icon {
     color: var(--color-font);
 }
+
+.case {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 600px;
+    height: 125px;
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    box-shadow: 0 2px 15px 1px var(--shadow-color);
+    margin-top: 60px;
+    padding: 20px;
+}
+.barre {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 1000px;
+    height: 100px;
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    box-shadow: 0 2px 15px 1px var(--shadow-color);
+    margin-top: 60px;
+    padding: 20px;
+}
+
+#aligne {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+input#filtre {
+    background-color: var(--primary-color);
+    color: var(--color-font-button);
+    box-shadow: 0 2px 8px 0px var(--shadow-color);
+    padding: 10px 15px;
+    border-radius: 10px;
+    animation: none;
+    transition: box-shadow .2s ease-in-out;
+    font-size: 1em;
+}
+
+input#filtre:hover {
+    animation: none;
+    background-color: var(--over-background-color);
+    box-shadow: 0 2px 8px 2px var(--shadow-color);
+}
+input#filtre:focus {
+    box-shadow: 0 2px 8px 2px var(--shadow-color);
+    letter-spacing: 0px;
+}
