@@ -7,6 +7,7 @@ use minipress\app\actions\GetMainAction;
 use minipress\app\actions\PostArticleFormAction;
 use minipress\app\actions\PostConnexionAction;
 use minipress\app\actions\PostInscriptionAction;
+use minipress\app\actions\GetArticleAction;
 use Slim\App;
 
 return function (App $app) {
@@ -17,4 +18,5 @@ return function (App $app) {
     $app->post('/inscription',PostInscriptionAction::class)->setName('inscription.post');
     $app->get('/article/add',GetArticleFormAction::class)->setName('form.article');
     $app->post('/article/add',PostArticleFormAction::class)->setName('form.article.post');
+    $app->get('/article',GetArticleAction::class)->setName('article');
 };
