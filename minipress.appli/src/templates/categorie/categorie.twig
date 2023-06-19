@@ -1,0 +1,17 @@
+{% extends "base.twig" %}
+
+{% block main %}
+    <div id="aligne">
+        <div class=barre2>
+            <h1>Categorie Ajout</h1>
+            <form action="categorie" method="post">
+                <label>Titre :</label>
+                <input type="text" id="titre" name="titre" value="">
+                <label>Description :</label>
+                <input type="text" id="description" name="description" value="">
+                <input type="submit" value="Ajouter" id="filtre">
+            </form>
+        </div>
+        <H1>{{ reponse }}</H1>
+    </div>
+{% endblock %}
