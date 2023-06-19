@@ -2,33 +2,51 @@
 
 {% block main %}
     {% if idUser is not empty %}
-    <div class="article-form">
-        <form action="{{ url_for('form.article.post') }}" method="post" id="article-form" enctype="multipart/form-data">
-            <div class="form-title">
-                <h1>Ajouter un article</h1>
-            </div>
-            <div class="form-group">
-                <label for="title">Titre</label>
-                <input type="text" name="titre" required class="form-control" id="title" placeholder="Titre de l'article">
-            </div>
-            <div class="form-group">
-                <label for="resume">Resumé</label>
-                <textarea name="resume" required class="form-control" id="content" placeholder="Resumé de l'article"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="content">Contenu</label>
-                <textarea name="contenu" required class="form-control" id="content" placeholder="Contenu de l'article"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="image   ">Image</label>
-                <input type="file" name="image" class="form-control" id="image" placeholder="Image de l'article">
-            </div>
-            <div class="sending">
-                <a href="">Cancel</a>
-                <button type="submit" class="btn btn-primary">Créer !</button>
-            </div>
-        </form>
-    </div>
+        <div class="article-form">
+            <form action="{{ url_for('form.article.post') }}" method="post" id="article-form"
+                  enctype="multipart/form-data">
+                <div class="form-title">
+                    <h1>Ajouter un article</h1>
+                </div>
+                <div class="form-group">
+                    <label for="title">Titre</label>
+                    <input type="text" name="titre" required class="form-control" id="title"
+                           placeholder="Titre de l'article">
+                </div>
+                <div class="form-group">
+                    <label for="resume">Resumé</label>
+                    <textarea name="resume" required class="form-control" id="content"
+                              placeholder="Resumé de l'article"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="content">Contenu</label>
+                    <textarea name="contenu" required class="form-control" id="content"
+                              placeholder="Contenu de l'article"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="image">Image</label>
+                    <input type="file" name="image" class="form-control" id="image" placeholder="Image de l'article">
+                </div>
+                <div class="form-group dropdown">
+                    <label for="categorie">Catégorie</label>
+                    <nav class="dropdown">
+                        
+                        <label>
+                            <select name="categorie" class="dropdown-select">
+                                {% for categorie in categories %}
+                                    <option value="{{ categorie.id_categorie }}">{{ categorie.titre }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    
+                    </nav>
+                </div>
+                <div class="sending">
+                    <a href="{{ url_for('home') }}">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Créer !</button>
+                </div>
+            </form>
+        </div>
     {% else %}
         <div class="alert alert-danger" role="alert">
             <h4 class="alert-heading">Vous n'avez pas accès à cette page !</h4>

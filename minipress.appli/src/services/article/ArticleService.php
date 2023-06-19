@@ -58,6 +58,10 @@ class ArticleService
             throw new BadDataArticelException("Bad data : resume");
         }
 
+        if (empty($article['categorie']) || $article['categorie'] !== filter_var($article['categorie'], FILTER_SANITIZE_FULL_SPECIAL_CHARS)) {
+            throw new BadDataArticelException("Bad data : categorie");
+        }
+
         if (isset($_SESSION['user'])) {
             $author = unserialize($_SESSION['user']);
             $article['id_user'] = $author[0]['id_user'];
@@ -94,7 +98,8 @@ class ArticleService
             $newArticle->contenu = $article['contenu'];
             $newArticle->resume = $article['resume'];
             $newArticle->date_de_creation = $article['date'];
-            $newArticle->image = $article['image'];
+            $newArticle->image = $article['image'] ?? null;
+            $newArticle->id_categorie = $article['categorie'];
             $newArticle->saveOrFail();
         } catch (\Throwable $e) {
             throw new BadDataArticelException("Error while creating article");

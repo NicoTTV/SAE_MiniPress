@@ -2,6 +2,7 @@
 
 namespace minipress\app\actions;
 
+use Exception;
 use minipress\app\services\article\ArticleService;
 use minipress\app\services\exceptions\BadDataArticelException;
 use Slim\Exception\HttpInternalServerErrorException;
@@ -23,6 +24,7 @@ class PostArticleFormAction extends AbstractAction
         $articleService = new ArticleService();
         $uploadedFiles = $rq->getUploadedFiles();
 
+
         $image = $uploadedFiles['image'] ?? null;
         try {
             $articleService->createArticle($data,$image);
@@ -30,10 +32,10 @@ class PostArticleFormAction extends AbstractAction
             throw new HttpInternalServerErrorException($rq, $e->getMessage());
         }
 
-        $twig = Twig::fromRequest($rq);
+        // A modifier plus tard quand on aura la page de l'article
         try {
-            return $twig->render($rs, 'article/articleForm.twig');
-        } catch (LoaderError|RuntimeError|SyntaxError $e) {
+            return $rs->withHeader('Location', RouteContext::fromRequest($rq)->getRouteParser()->urlFor('form.article'))->withStatus(302);
+        }catch (Exception $e) {
             throw new HttpInternalServerErrorException($rq, $e->getMessage());
         }
     }
