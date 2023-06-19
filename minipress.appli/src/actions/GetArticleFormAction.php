@@ -33,9 +33,10 @@ class GetArticleFormAction extends AbstractAction
         }catch (CategorieNotFoundException $e) {
             throw new HttpInternalServerErrorException($rq, $e->getMessage());
         }
-
+        $idUser = null;
         try {
-            $idUser = unserialize($_SESSION['user'])[0]['id_user'] ?? null;
+            if (isset($_SESSION['user']))
+                $idUser = unserialize($_SESSION['user'])[0]['id_user'];
         } catch (Exception $e) {
             throw new HttpInternalServerErrorException($rq, $e->getMessage());
         }
