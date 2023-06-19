@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e62db37c-ac16-41e6-9607-1e236963e629" name="Changes" comment="modif catch in action files">
-      <change beforePath="$PROJECT_DIR$/.idea/SAE_MiniPress.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SAE_MiniPress.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minipress.appli/src/conf/gift.db.conf.ini.dist" beforeDir="false" />
-    </list>
+    <list default="true" id="e62db37c-ac16-41e6-9607-1e236963e629" name="Changes" comment="modif catch in action files" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,7 +28,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "dart.analysis.tool.window.visible": "false",
-    "last_opened_file_path": "D:/Dossiers/BUT Informatique/SAE_MiniPress",
+    "last_opened_file_path": "C:/xampp/htdocs/Gift_Box_Project",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -50,6 +47,7 @@
       <workItem from="1686835289518" duration="2616000" />
       <workItem from="1686838170548" duration="3028000" />
       <workItem from="1686900459670" duration="2222000" />
+      <workItem from="1686913760625" duration="86000" />
     </task>
     <task id="LOCAL-00001" summary="modif GetConnexionAction.php">
       <created>1686841082263</created>
