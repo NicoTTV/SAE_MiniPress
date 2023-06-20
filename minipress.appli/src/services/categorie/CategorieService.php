@@ -25,12 +25,9 @@ class CategorieService
     {
         $catego = Categorie::all();
         $nomb = $catego->pluck('id-categorie')->sortBy('id-categorie');
-        $idLibre = 0;
-
-        foreach ($nomb as $element) {
-            if($element==$idLibre){
-            $idLibre = $element+1;
-            }
+        $idLibre=0;
+        foreach($nomb as $num){
+            $idLibre=($idLibre*10)+$num;
         }
         $catego2 = new Categorie();
         $catego2->setAttribute('id-categorie', $idLibre);

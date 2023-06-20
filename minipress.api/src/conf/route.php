@@ -5,6 +5,7 @@ use minipress\api\actions\CategorieAction;
 use minipress\api\actions\CateArctAction;
 use minipress\api\actions\ArticleCompletAction;
 use minipress\api\actions\ArticleAuteurAction;
+use minipress\api\actions\UserAction;
 use Slim\App;
 
 return function (App $app) {
@@ -13,5 +14,5 @@ return function (App $app) {
     $app->get('/api/articles', ArticleAction::class);
     $app->get('/api/articles/{id}', ArticleCompletAction::class);
     $app->get('/api/auteurs/{id}/articles', ArticleAuteurAction::class);
-    //$app->post('/formule',test::class);
+    $app->get('/api/user',UserAction::class);
 };

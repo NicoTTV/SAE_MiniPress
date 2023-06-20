@@ -2,17 +2,17 @@
 
 namespace minipress\api\actions;
 
-use minipress\api\models\Categorie;
+use minipress\api\models\User;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 
-class CategorieAction extends AbstractAction {
+class UserAction extends AbstractAction {
     public function __invoke(Request $request, Response $response, $args):Response {
         // Liste des catégories
-        $categories = Categorie::all();
+        $using = User::all();
 
         // Convertir le tableau en JSON
-        $json = json_encode($categories);
+        $json = json_encode($using);
 
         // Ajouter le contenu JSON à la réponse
         $response->getBody()->write($json);
