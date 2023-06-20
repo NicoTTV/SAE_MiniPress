@@ -2,26 +2,38 @@
 
 {% block main %}
     <div id="aligne">
-    <div class=barre>
-        <h1>{{ nombre }}</h1>
-        <form action="/article" method="get">
-            <label for="Categorie">Catégorie :</label>
-            <select id="categorie" name="categorie">
-                {% for categorie in categories %}
-                    <option value={{ categorie.titre }}>{{categorie.titre}}</option>
-                {% endfor %}
-                <option value="Aucune">Aucune</option>
-            </select>
-            <input type="submit" value="filtrer" id="filtre">
-        </form>
-    </div>
-    <div id="list">
-        {% for article in articles %}
-           <div class=case>
-               <h1>{{ article.titre }}</h1>
-               <p>{{ article.date_de_creation }}</p>
-           </div>
-        {% endfor %}
-    </div>
+        <div class="barre">
+            <h1>{{ nombre }}</h1>
+            <form action="{{ url_for('article') }}" method="get">
+                <label for="Categorie">Catégorie :</label>
+                <select id="categorie" name="categorie">
+                    {% for categorie in categories %}
+                        <option value={{ categorie.titre }}>{{ categorie.titre }}</option>
+                    {% endfor %}
+                    <option value="Aucune">Aucune</option>
+                </select>
+                <input type="submit" value="filtrer" id="filtre">
+            </form>
+        </div>
+        <div class="list">
+            {% for article in articles %}
+                {% if article.publie == 1 or (article.publie == 0 and user[0].id_user == article.id_user) %}
+                    <div class="case">
+                        <h1>{{ article.titre }}</h1>
+                        <p>{{ article.date_de_creation }}</p>
+                        {% if user[0].id_user == article.id_user and article.id_user is not empty %}
+                        <form action="{{ url_for('publie.post') }}" method="post">
+                            <input type="hidden" name="article" value="{{ article.id_article }}">
+                            {% if article.publie == 0 %}
+                                    <button type="submit" class="sendingButton articleButton">Publier</button>
+                            {% else %}
+                                    <button type="submit" class="sendingButton articleButton">Dépublier</button>
+                            {% endif %}
+                            </form>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

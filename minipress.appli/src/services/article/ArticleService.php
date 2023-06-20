@@ -112,4 +112,29 @@ class ArticleService
         return $info;
 
     }
+
+    /**
+     * @throws BadDataArticelException
+     * @throws ArticleNotFoundException
+     */
+    public function changePublicationStatutArticle(string $id): void
+    {
+
+        if (empty($id) || $id !== filter_var($id, FILTER_SANITIZE_FULL_SPECIAL_CHARS)) {
+            throw new BadDataArticelException("Bad data : id");
+        }
+
+        if ($this->getArticleById($id)['publie'] === 1) {
+            $publie = 0;
+        } else {
+            $publie = 1;
+        }
+
+
+        try {
+            Article::where('id_article', $id)->update(['publie' => $publie]);
+        }catch (ModelNotFoundException $e){
+            throw new ArticleNotFoundException($e->getMessage());
+        }
+    }
 }

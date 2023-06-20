@@ -79,7 +79,7 @@ input:hover, .form-group textarea:hover {
     box-shadow: 0 2px 8px 2px var(--shadow-color);
 }
 
-a#connexion,button#connexion, .sending button{
+a#connexion,button#connexion, .sending button, .sendingButton, a#deconnexion {
     background-color: var(--primary-color);
     color: var(--color-font-button);
     box-shadow: 0 2px 8px 0px var(--shadow-color);
@@ -87,13 +87,19 @@ a#connexion,button#connexion, .sending button{
     border-radius: 10px;
     transition: background-color .2s ease-in-out;
     margin-left: 60px;
+    border: none;
+    cursor: pointer;
+}
+
+.articleButton {
+    margin: 0;
 }
 
 nav#nav-account {
     margin-left: 100px;
 }
 
-a#connexion:hover {
+a#connexion:hover, .sendingButton:hover, a#deconnexion:hover {
     background-color: var(--over-background-color);
     box-shadow: 0 2px 8px 2px var(--shadow-color);
 }
@@ -333,19 +339,29 @@ select:hover {
     padding: 20px;
 }
 
+.list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 0 50px;
+    width: 90em;
+    margin-bottom: 50px;
+}
+
 .case {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 600px;
-    height: 125px;
+    text-align: center;
+    min-width: 40%;
+    max-width: 100%;
     background-color: var(--secondary-color);
     border-radius: 10px;
-    box-shadow: 0 2px 15px 1px var(--shadow-color);
+    box-shadow: 0 2px 15px 0px var(--shadow-color);
     margin-top: 60px;
     padding: 20px;
 }
+
 .barre {
     display: flex;
     flex-direction: column;
@@ -363,7 +379,9 @@ select:hover {
 #aligne {
     display: flex;
     flex-direction: column;
+    width: 100%;
     align-items: center;
+    justify-content: center;
 }
 
 #aligne form {
@@ -379,7 +397,7 @@ select:hover {
 }
 
 #aligne form select {
-    width: 200px; /* Ajustez la largeur selon vos besoins */
+    width: 200px;
 }
 
 #aligne form input[type="submit"] {
@@ -390,11 +408,6 @@ select:hover {
     border-radius: 5px;
     cursor: pointer;
 }
-
-#list {
-    margin-top: 20px; /* Ajustez la marge selon vos besoins */
-}
-
 
 input#filtre {
     background-color: var(--primary-color);

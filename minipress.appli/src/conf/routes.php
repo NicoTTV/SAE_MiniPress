@@ -7,11 +7,14 @@ use minipress\app\actions\GetInscriptionByAdmin;
 use minipress\app\actions\GetMainAction;
 use minipress\app\actions\PostArticleFormAction;
 use minipress\app\actions\PostConnexionAction;
+use minipress\app\actions\PostDeconnexionAction;
+use minipress\app\actions\PostDepublieArticleAction;
 use minipress\app\actions\PostInscriptionAction;
 use minipress\app\actions\GetArticleAction;
 use minipress\app\actions\GetCategorieFormAction;
 use minipress\app\actions\PostCategorieFormAction;
 use minipress\app\actions\PostInscriptionByAdmin;
+use minipress\app\actions\PostPubDepubArticleAction;
 use Slim\App;
 
 return function (App $app) {
@@ -27,4 +30,6 @@ return function (App $app) {
     $app->post('/categorie',PostCategorieFormAction::class)->setName('categorie');
     $app->get('/article/add',GetArticleFormAction::class)->setName('form.article');
     $app->post('/article/add',PostArticleFormAction::class)->setName('form.article.post');
+    $app->post('/article/publie',PostPubDepubArticleAction::class)->setName('publie.post');
+    $app->post('/article/depublie',PostDepublieArticleAction::class)->setName('depublie.post');
 };
