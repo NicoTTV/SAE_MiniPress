@@ -17,44 +17,65 @@ class ListArticles extends StatefulWidget {
 class _ListArticles extends State<ListArticles> {
 
   late final Article article;
-  List<Article> listArticles = [];
+  List<Article> listArticles = <Article>[];
 
-  late Future<Article> futureArticle;
+  // static getArticles() {
+  //   return http.get(Uri.parse('http://docketu.iutnc.univ-lorraine.fr:41004/api/articles'));
+  // }
 
-  Future<Article> _fetchArticle() async {
-    final response = await http.get(Uri.parse('http://docketu.iutnc.univ-lorraine.fr:41004/api/articles'));
+
+  // Future<Article> _fetchArticle() async {
+  //   final response = await http.get(Uri.parse('http://docketu.iutnc.univ-lorraine.fr:41004/api/articles'));
+  //   print("coucou");
+  //   if (response.statusCode == 200) {
+  //     print("coucou");
+  //     return Article.fromJson(jsonDecode(response.body));
+  //   } else {
+  //     throw Exception('Failed to load article');
+  //   }
+  // }
+
+  Future fetchArticle() async {
+    var response = await http.get(Uri.parse('http://docketu.iutnc.univ-lorraine.fr:41004/api/articles'));
+
+    var articles = <Article>[];
 
     if (response.statusCode == 200) {
-      return Article.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to load article');
-    }
-  }
 
-  @override
-  void initState() {
-    super.initState();
-    futureArticle = _fetchArticle();
+      var articlesJson = json.decode(response.body);
+      for (var i in articlesJson) {
+        articles.add(Article.fromJson(articlesJson));
+      }
+    }
+    return articles;
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Test',
-      home: Scaffold(
-        body: Center(
-          child: FutureBuilder<Article>(
-            future: futureArticle,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Text(snapshot.data!.titre);
-              } else if (snapshot.hasError) {
-                return const Text('Error');
-              }
-              return const CircularProgressIndicator();
-            },
-          )
-        ),
+    fetchArticle().then((value) => {
+      setState(() {
+        print("bonjour");
+        listArticles.addAll(value);
+      })   
+    });
+
+    return Scaffold(
+      body: ListView.builder(
+        itemBuilder: (context, index) {
+          return Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    listArticles[index].titre
+                  )
+                ],
+              ),
+            ),
+          );
+        },
+        itemCount: listArticles.length,
       ),
     );
   }
