@@ -27,7 +27,6 @@ class GetArticleFormAction extends AbstractAction
             throw new HttpInternalServerErrorException($rq, $e->getMessage());
         }
 
-
         try {
             $categorieService = new CategorieService();
             $categories = $categorieService->getAllCategories();

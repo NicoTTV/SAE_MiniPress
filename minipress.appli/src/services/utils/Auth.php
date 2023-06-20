@@ -25,8 +25,9 @@ class Auth
         if (!filter_var($email, FILTER_VALIDATE_EMAIL))
             throw new BadDataUserException("Bad data user : not a valid email");
 
-        if ($email !== filter_var($email, FILTER_SANITIZE_EMAIL))
-            throw new BadDataUserException("Bad data user : not a sanitize email");
+        if ($email !== filter_var($email, FILTER_SANITIZE_EMAIL)) {
+            throw new BadDataUserException("Bad data user : not a sanitize email : ". $email);
+        }
 
         try {
             return User::where('email', '=', $email)->get()->toArray();
@@ -46,8 +47,8 @@ class Auth
         if (!isset($data['password']) || !isset($data['email']))
             throw new BadDataUserException("Bad data user : empty");
 
-        if ($data['password'] !== filter_var($data['password'], FILTER_SANITIZE_FULL_SPECIAL_CHARS))
-            throw new BadDataUserException("Bad data user : not a sanitize email");
+        if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|\W)).+$/', $data['password']))
+            throw new BadDataUserException("Bad data user : password not valid");
 
         $user = self::getUserByLogin($data['email']);
         if (empty($user))
@@ -73,11 +74,9 @@ class Auth
         if (!isset($data['password']) || !isset($data['email']) || !isset($data['passwordVerify']) || !isset($data['pseudo']))
             throw new BadDataUserException("Bad data user : empty");
 
-        if ($data['password'] !== filter_var($data['password'], FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/']]))
-            throw new BadDataUserException("Bad data user : not a sanitize email");
-
-        if ($data['email'] !== filter_var($data['email'], FILTER_SANITIZE_EMAIL))
-            throw new BadDataUserException("Bad data user : not a sanitize email");
+        // password should at least 8 characters in length and should include at least one upper case letter, one number, and one special character
+        if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|\W)).+$/', $data['password']))
+            throw new BadDataUserException("Bad data user : password not valid");
 
         if ($data['pseudo'] !== filter_var($data['pseudo'], FILTER_SANITIZE_FULL_SPECIAL_CHARS))
             throw new BadDataUserException("Bad data user : not a sanitize pseudo");

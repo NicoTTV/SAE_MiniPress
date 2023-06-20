@@ -5,6 +5,8 @@ namespace minipress\app\actions;
 use Exception;
 use minipress\app\services\article\ArticleService;
 use minipress\app\services\exceptions\BadDataArticelException;
+use minipress\app\services\exceptions\ExceptionTokenVerify;
+use minipress\app\services\utils\CsrfService;
 use Slim\Exception\HttpInternalServerErrorException;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
@@ -24,6 +26,11 @@ class PostArticleFormAction extends AbstractAction
         $articleService = new ArticleService();
         $uploadedFiles = $rq->getUploadedFiles();
 
+        try {
+            CsrfService::check($data['csrf'] ?? '');
+        } catch (ExceptionTokenVerify $e) {
+            throw new HttpInternalServerErrorException($rq, $e->getMessage());
+        }
 
         $image = $uploadedFiles['image'] ?? null;
         try {

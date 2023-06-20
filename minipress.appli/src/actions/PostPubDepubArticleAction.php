@@ -6,6 +6,8 @@ use minipress\app\models\Article;
 use minipress\app\services\article\ArticleService;
 use minipress\app\services\exceptions\ArticleNotFoundException;
 use minipress\app\services\exceptions\BadDataArticelException;
+use minipress\app\services\exceptions\ExceptionTokenVerify;
+use minipress\app\services\utils\CsrfService;
 use Slim\Exception\HttpInternalServerErrorException;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
@@ -19,6 +21,12 @@ class PostPubDepubArticleAction extends AbstractAction
         $data = $rq->getParsedBody();
         $articleService = new ArticleService();
         $idArticle = $data['article'];
+
+        try {
+            CsrfService::check($data['csrf'] ?? '');
+        } catch (ExceptionTokenVerify $e) {
+            throw new HttpInternalServerErrorException($rq, $e->getMessage());
+        }
 
         try {
             $articleService->changePublicationStatutArticle($idArticle);

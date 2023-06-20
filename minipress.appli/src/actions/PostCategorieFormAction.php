@@ -23,6 +23,7 @@ class PostCategorieFormAction extends AbstractAction
         $categorieService = new CategorieService();
         $beta=['reponse'=>$categorieService->addCategories($sac)];
         $twig = Twig::fromRequest($rq);
+
         try {
             return $twig->render($rs, 'categorie/categorie.twig',$beta);
         } catch (LoaderError $e) {

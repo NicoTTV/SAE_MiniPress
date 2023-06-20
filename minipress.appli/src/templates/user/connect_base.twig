@@ -9,7 +9,7 @@
             {% endblock %}
             <div class="input-box">
                 <div class="input-box-item">
-                    <input name="email" type="text" id="id" placeholder="Email" required>
+                    <input name="email" type="email" id="id" placeholder="Email" required>
                     <label for="id"></label>
                     <span class="material-symbols-rounded icon">email</span>
                 </div>
@@ -19,6 +19,7 @@
                     <span class="material-symbols-rounded icon">lock</span>
                 </div>
             </div>
+            <input type="hidden" name="csrf" value="{{ csrf }}">
             {% block connexion %}
             
             {% endblock %}

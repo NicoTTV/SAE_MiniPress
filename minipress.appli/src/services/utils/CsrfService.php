@@ -18,7 +18,7 @@ class CsrfService
         } catch (Exception $e) {
             throw new ExceptionTokenGenerate();
         }
-        $_SESSION['csrf'] = $token;
+        $_SESSION['csrf'] = serialize($token);
         return $token;
     }
 
@@ -27,7 +27,10 @@ class CsrfService
      */
     public static function check($token):void
     {
-        $sessionToken = $_SESSION['csrf'];
+        if (!isset($_SESSION['csrf'])) {
+            throw new ExceptionTokenVerify('Token invalide');
+        }
+        $sessionToken = unserialize($_SESSION['csrf']);
         unset($_SESSION['csrf']);
         if ($token !== $sessionToken) {
             throw new ExceptionTokenVerify('Token invalide');

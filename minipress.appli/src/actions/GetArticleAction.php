@@ -4,7 +4,9 @@ namespace minipress\app\actions;
 
 use minipress\app\services\exceptions\ArticleNotFoundException;
 use minipress\app\services\exceptions\CategorieNotFoundException;
+use minipress\app\services\exceptions\ExceptionTokenGenerate;
 use minipress\app\services\utils\Auth;
+use minipress\app\services\utils\CsrfService;
 use Slim\Exception\HttpInternalServerErrorException;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
@@ -22,6 +24,12 @@ class GetArticleAction extends AbstractAction
         $articleService = new ArticleService();
         $categorieService = new CategorieService();
         $twig = Twig::fromRequest($rq);
+
+        try {
+            $csrf = CsrfService::generate();
+        } catch (ExceptionTokenGenerate $e) {
+            throw new HttpInternalServerErrorException($rq, $e->getMessage());
+        }
 
         if (isset($_GET['categorie'])) {
             $categorie = $_GET['categorie'];
@@ -56,7 +64,7 @@ class GetArticleAction extends AbstractAction
             throw new HttpInternalServerErrorException($rq, $e->getMessage());
         }
 
-        $ajout = ['articles' => $info, 'categories' => $info2, 'nombre' => $testing,"user" => $user];
+        $ajout = ['articles' => $info, 'categories' => $info2, 'nombre' => $testing,"user" => $user, 'csrf' => $csrf];
 
         try {
             return $twig->render($rs, 'article/article.twig', $ajout);

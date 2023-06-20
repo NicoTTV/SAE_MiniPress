@@ -24,6 +24,7 @@
                         {% if user.id_user == article.id_user and article.id_user is not empty %}
                         <form action="{{ url_for('publie.post') }}" method="post">
                             <input type="hidden" name="article" value="{{ article.id_article }}">
+                            <input type="hidden" name="csrf" value="{{ csrf }}">
                             {% if article.publie == 0 %}
                                     <button type="submit" class="sendingButton articleButton">Publier</button>
                             {% else %}
