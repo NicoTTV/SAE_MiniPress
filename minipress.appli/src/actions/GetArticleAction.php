@@ -4,6 +4,8 @@ namespace minipress\app\actions;
 
 use minipress\app\models\Article;
 use minipress\app\models\Categorie;
+use minipress\app\services\exceptions\ArticleNotFoundException;
+use minipress\app\services\exceptions\CategorieNotFoundException;
 use Slim\Exception\HttpInternalServerErrorException;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
@@ -26,18 +28,34 @@ class GetArticleAction extends AbstractAction
             $categorie = $_GET['categorie'];
             if ($categorie == "Aucune") {
                 $testing = "Aucune Catégorie";
-                $info = $articleService->getArticles();
+                try {
+                    $info = $articleService->getArticles();
+                } catch (ArticleNotFoundException $e) {
+                    throw new HttpInternalServerErrorException($rq, $e->getMessage());
+                }
             } else {
-                $beta = $categorieService->getIdFromTitre($categorie);
+                try {
+                    $beta = $categorieService->getIdFromTitre($categorie);
+                } catch (CategorieNotFoundException $e) {
+                    throw new HttpInternalServerErrorException($rq, $e->getMessage());
+                }
                 $testing = $categorie;
                 $info = $articleService->getArticleByCategorie($beta);
             }
         } else {
             $testing = "Aucune Catégorie";
-            $info = $articleService->getArticles();
+            try {
+                $info = $articleService->getArticles();
+            } catch (ArticleNotFoundException $e) {
+                throw new HttpInternalServerErrorException($rq, $e->getMessage());
+            }
         }
 
-        $info2 = $categorieService->getAllCategories();
+        try {
+            $info2 = $categorieService->getAllCategories();
+        } catch (CategorieNotFoundException $e) {
+            throw new HttpInternalServerErrorException($rq, $e->getMessage());
+        }
 
         $ajout = ['articles' => $info, 'categories' => $info2, 'nombre' => $testing];
 

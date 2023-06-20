@@ -44,8 +44,14 @@ class CategorieService
         }
     }
 
+    /**
+     * @throws CategorieNotFoundException
+     */
     public function getIdFromTitre(String $titre):Int{
-        $beta = Categorie::where('titre', $titre)->value('id-categorie');
-        return $beta;
+        try {
+            return Categorie::where('titre', $titre)->value('id-categorie');
+        }catch (ModelNotFoundException $e){
+            throw new CategorieNotFoundException($e->getMessage());
+        }
     }
 }
