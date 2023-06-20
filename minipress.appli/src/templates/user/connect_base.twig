@@ -1,0 +1,28 @@
+{% extends "base.twig" %}
+
+
+{% block main %}
+    <div class="sign sign-in">
+        <form id="sign" action="{{ url }}" method="post">
+            {% block titleConnect %}
+            
+            {% endblock %}
+            <div class="input-box">
+                <div class="input-box-item">
+                    <input name="email" type="text" id="id" placeholder="Email" required>
+                    <label for="id"></label>
+                    <span class="material-symbols-rounded icon">email</span>
+                </div>
+                <div class="input-box-item">
+                    <input name="password" type="password" id="password" placeholder="Mot de passe" required>
+                    <label for="password"></label>
+                    <span class="material-symbols-rounded icon">lock</span>
+                </div>
+            </div>
+            {% block connexion %}
+            
+            {% endblock %}
+        </form>
+    </div>
+{% endblock %}
+
