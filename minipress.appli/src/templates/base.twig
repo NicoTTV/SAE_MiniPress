@@ -26,6 +26,9 @@
         <ul>
             <li><a href="" id="panier">Panier</a></li>
             <li><a href="{{ url_for('connexion') }}" id="connexion" class="button">Connexion</a></li>
+            {% block createUser %}
+            
+            {% endblock %}
         </ul>
     </nav>
 </header>

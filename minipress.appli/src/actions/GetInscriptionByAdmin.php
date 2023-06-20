@@ -11,16 +11,16 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
-class GetConnexionAction extends AbstractAction
+class GetInscriptionByAdmin extends AbstractAction
 {
 
     public function __invoke(Request $rq, Response $rs, array $args): Response
     {
         $twig = Twig::fromRequest($rq);
         $routeParser = RouteContext::fromRequest($rq)->getRouteParser();
-        $url = $routeParser->urlFor('connexion');
+        $url = $routeParser->urlFor('inscription.admin');
         try {
-            return $twig->render($rs, 'user/connexion.twig',['url'=>$url]);
+            return $twig->render($rs, 'user/inscription_admin.twig',['url'=>$url]);
         } catch (LoaderError|RuntimeError|SyntaxError $e) {
             throw new HttpInternalServerErrorException($rq, $e->getMessage());
         }

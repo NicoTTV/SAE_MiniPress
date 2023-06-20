@@ -74,7 +74,7 @@ class UserService
         if (!isset($data['password']) || !isset($data['email']) || !isset($data['passwordVerify']) || !isset($data['pseudo']))
             throw new BadDataUserException("Bad data user : empty");
 
-        if ($data['password'] !== filter_var($data['password'], FILTER_SANITIZE_FULL_SPECIAL_CHARS))
+        if ($data['password'] !== filter_var($data['password'], FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/']]))
             throw new BadDataUserException("Bad data user : not a sanitize email");
 
         if ($data['email'] !== filter_var($data['email'], FILTER_SANITIZE_EMAIL))
@@ -103,4 +103,34 @@ class UserService
         $_SESSION['user'] = serialize($user);
         return true;
     }
+
+    /**
+     * @throws UserNotFoundException
+     * @throws BadDataUserException
+     * @throws UserRegisterException
+     */
+    public function inscriptionByAdmin(array $data): bool
+    {
+        if (!isset($data['password']) || !isset($data['email']))
+            throw new BadDataUserException("Bad data user : empty");
+
+        if ($data['password'] !== filter_var($data['password'], FILTER_SANITIZE_FULL_SPECIAL_CHARS))
+            throw new BadDataUserException("Bad data user : not a sanitize email");
+
+        $user = $this->getUserByLogin($data['email']);
+        if (!empty($user))
+            throw new BadDataUserException("Bad data user : email already exist");
+
+        try {
+            $user = new User();
+            $user->email = $data['email'];
+            $user->password = password_hash($data['password'], PASSWORD_DEFAULT);
+            $user->pseudo = null;
+            $user->saveOrFail();
+        } catch (\Throwable $e) {
+            throw new UserRegisterException("Error when register user");
+        }
+        return true;
+    }
+
 }

@@ -1,5 +1,13 @@
 {% extends "base.twig" %}
 
+{% block createUser %}
+    {% if user is not empty %}
+        <li><a href="{{ url_for('inscription.admin') }}" class="button">Créer un utilisateur</a></li>
+    {% endif %}
+{% endblock %}
+
+
+
 {% block main %}
     <h1>MiniPress</h1>
 {% endblock %}
