@@ -1,6 +1,8 @@
 'use strict';
 
+
 import { updateArticleList } from './article.js';
+
 
 /* Récupération des catégories */
 fetch('http://localhost:41004/api/categories')
@@ -17,7 +19,6 @@ fetch('http://localhost:41004/api/categories')
     .catch(error => {
         console.error('Une erreur s\'est produite lors de la récupération des catégories:', error);
     });
-
 
 
 /* Affichage des catégories dans l'interface */
