@@ -56,6 +56,7 @@ export function updateArticleList(categoryId) {
     if (categoryId === 'all') {
         displayArticles(articles); // Afficher tous les articles
     } else {
+        console.log(categoryId);
         // Récupérer les articles de la catégorie sélectionnée
         fetch(`http://localhost:41004/api/categories/${categoryId}/articles`)
             .then(response => response.json())
