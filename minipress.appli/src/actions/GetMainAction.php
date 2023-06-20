@@ -16,13 +16,17 @@ class GetMainAction extends AbstractAction
     public function __invoke(Request $rq, Response $rs, array $args): Response
     {
         $twig = Twig::fromRequest($rq);
+        if (isset($_SESSION['user'])) {
+            $user = unserialize($_SESSION['user']);
+            if ($user[0]['admin'] !== 1) {
+                $user = null;
+            }
+        } else {
+            $user = null;
+        }
         try {
-            return $twig->render($rs, 'acceuil.twig');
-        } catch (LoaderError $e) {
-            throw new HttpInternalServerErrorException($rq, $e->getMessage());
-        } catch (RuntimeError $e) {
-            throw new HttpInternalServerErrorException($rq, $e->getMessage());
-        } catch (SyntaxError $e) {
+            return $twig->render($rs, 'acceuil.twig',['user'=>$user]);
+        } catch (LoaderError|RuntimeError|SyntaxError $e) {
             throw new HttpInternalServerErrorException($rq, $e->getMessage());
         }
     }
