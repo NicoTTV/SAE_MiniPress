@@ -24,10 +24,13 @@ class CategorieService
     public function addCategories(Array $pack):String
     {
         $catego = Categorie::all();
-        $nomb = $catego->pluck('id-categorie')->sortBy('id-categorie');
+        $nomb = $catego->pluck('id-categorie')->toArray();
         $idLibre=0;
+        sort($nomb);
         foreach($nomb as $num){
-            $idLibre=($idLibre*10)+$num;
+            if($num==$idLibre){
+            $idLibre++;
+            }
         }
         $catego2 = new Categorie();
         $catego2->setAttribute('id-categorie', $idLibre);
@@ -35,9 +38,9 @@ class CategorieService
         $catego2->setAttribute('description', $pack[1]);
         $catego2->setAttribute('created_at', new DateTime());
         if ($catego2->save()) {
-            return "validated";
+            return "Catégorie créé";
         } else {
-            return "wrong";
+            return "Erreur de création";
         }
     }
 
