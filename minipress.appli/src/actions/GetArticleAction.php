@@ -30,7 +30,7 @@ class GetArticleAction extends AbstractAction
             } else {
                 $beta = $categorieService->getIdFromTitre($categorie);
                 $testing = $categorie;
-                $info = $categorieService->getArticleByCategorie($beta);
+                $info = $articleService->getArticleByCategorie($beta);
             }
         } else {
             $testing = "Aucune Catégorie";
