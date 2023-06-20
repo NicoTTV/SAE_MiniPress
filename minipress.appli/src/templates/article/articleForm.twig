@@ -1,7 +1,7 @@
 {% extends "base.twig" %}
 
 {% block main %}
-    {% if idUser is not empty %}
+    {% if user is not empty %}
         <div class="article-form">
             <form action="{{ url_for('form.article.post') }}" method="post" id="article-form"
                   enctype="multipart/form-data">

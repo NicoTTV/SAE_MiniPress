@@ -2,6 +2,7 @@
 
 namespace minipress\app\actions;
 
+use minipress\app\services\utils\Auth;
 use Slim\Exception\HttpInternalServerErrorException;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
@@ -19,8 +20,9 @@ class GetConnexionAction extends AbstractAction
         $twig = Twig::fromRequest($rq);
         $routeParser = RouteContext::fromRequest($rq)->getRouteParser();
         $url = $routeParser->urlFor('connexion');
+        $user = Auth::getCurrentUser();
         try {
-            return $twig->render($rs, 'user/connexion.twig',['url'=>$url]);
+            return $twig->render($rs, 'user/connexion.twig',['url'=>$url,'user'=>$user]);
         } catch (LoaderError|RuntimeError|SyntaxError $e) {
             throw new HttpInternalServerErrorException($rq, $e->getMessage());
         }

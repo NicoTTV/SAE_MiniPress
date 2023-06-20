@@ -1,15 +1,14 @@
 <?php
 
-namespace minipress\app\services\user;
+namespace minipress\app\services\utils;
 
 use Exception;
 use minipress\app\models\User;
 use minipress\app\services\exceptions\BadDataUserException;
 use minipress\app\services\exceptions\UserNotFoundException;
 use minipress\app\services\exceptions\UserRegisterException;
-use Slim\Exception\HttpInternalServerErrorException;
 
-class UserService
+class Auth
 {
     /**
      * @param string $email
@@ -17,7 +16,7 @@ class UserService
      * @throws BadDataUserException
      * @throws UserNotFoundException
      */
-    public function getUserByLogin(string $email):array
+    public static function getUserByLogin(string $email):array
     {
 
         if (empty($email))
@@ -42,7 +41,7 @@ class UserService
      * @throws BadDataUserException
      * @throws UserNotFoundException
      */
-    public function connexion(array $data): bool
+    public static function connexion(array $data): bool
     {
         if (!isset($data['password']) || !isset($data['email']))
             throw new BadDataUserException("Bad data user : empty");
@@ -50,7 +49,7 @@ class UserService
         if ($data['password'] !== filter_var($data['password'], FILTER_SANITIZE_FULL_SPECIAL_CHARS))
             throw new BadDataUserException("Bad data user : not a sanitize email");
 
-        $user = $this->getUserByLogin($data['email']);
+        $user = self::getUserByLogin($data['email']);
         if (empty($user))
             throw new UserNotFoundException("User not found");
 
@@ -69,7 +68,7 @@ class UserService
      * @throws UserNotFoundException
      * @throws UserRegisterException
      */
-    public function inscription(array $data): bool
+    public static function inscription(array $data): bool
     {
         if (!isset($data['password']) || !isset($data['email']) || !isset($data['passwordVerify']) || !isset($data['pseudo']))
             throw new BadDataUserException("Bad data user : empty");
@@ -83,7 +82,7 @@ class UserService
         if ($data['pseudo'] !== filter_var($data['pseudo'], FILTER_SANITIZE_FULL_SPECIAL_CHARS))
             throw new BadDataUserException("Bad data user : not a sanitize pseudo");
 
-        $user = $this->getUserByLogin($data['email']);
+        $user = self::getUserByLogin($data['email']);
         if (!empty($user))
             throw new BadDataUserException("Bad data user : email already exist");
 
@@ -91,11 +90,11 @@ class UserService
             throw new BadDataUserException("Bad data user : password don't match");
 
 
-        $user = new User();
-        $user->email = $data['email'];
-        $user->password = password_hash($data['password'], PASSWORD_DEFAULT);
-        $user->pseudo = $data['pseudo'];
         try {
+            $user = new User();
+            $user->email = $data['email'];
+            $user->password = password_hash($data['password'], PASSWORD_DEFAULT);
+            $user->pseudo = $data['pseudo'];
             $user->saveOrFail();
         } catch (\Throwable $e) {
             throw new UserRegisterException("Error when register user");
@@ -109,7 +108,7 @@ class UserService
      * @throws BadDataUserException
      * @throws UserRegisterException
      */
-    public function inscriptionByAdmin(array $data): bool
+    public static function inscriptionByAdmin(array $data): bool
     {
         if (!isset($data['password']) || !isset($data['email']))
             throw new BadDataUserException("Bad data user : empty");
@@ -117,7 +116,7 @@ class UserService
         if ($data['password'] !== filter_var($data['password'], FILTER_SANITIZE_FULL_SPECIAL_CHARS))
             throw new BadDataUserException("Bad data user : not a sanitize email");
 
-        $user = $this->getUserByLogin($data['email']);
+        $user = self::getUserByLogin($data['email']);
         if (!empty($user))
             throw new BadDataUserException("Bad data user : email already exist");
 
@@ -131,6 +130,13 @@ class UserService
             throw new UserRegisterException("Error when register user");
         }
         return true;
+    }
+
+    public static function getCurrentUser(): array|null
+    {
+        if (isset($_SESSION['user']))
+            return unserialize($_SESSION['user'])[0];
+        return null;
     }
 
 }

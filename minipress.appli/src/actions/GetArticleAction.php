@@ -2,11 +2,9 @@
 
 namespace minipress\app\actions;
 
-use minipress\app\models\Article;
-use minipress\app\models\Categorie;
 use minipress\app\services\exceptions\ArticleNotFoundException;
 use minipress\app\services\exceptions\CategorieNotFoundException;
-use minipress\app\services\user\UserService;
+use minipress\app\services\utils\Auth;
 use Slim\Exception\HttpInternalServerErrorException;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
@@ -51,7 +49,7 @@ class GetArticleAction extends AbstractAction
                 throw new HttpInternalServerErrorException($rq, $e->getMessage());
             }
         }
-        $user = unserialize($_SESSION['user']) ?? null;
+        $user = Auth::getCurrentUser();
         try {
             $info2 = $categorieService->getAllCategories();
         } catch (CategorieNotFoundException $e) {

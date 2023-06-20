@@ -2,6 +2,7 @@
 
 namespace minipress\app\actions;
 
+use minipress\app\services\utils\Auth;
 use Slim\Exception\HttpInternalServerErrorException;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
@@ -16,14 +17,7 @@ class GetMainAction extends AbstractAction
     public function __invoke(Request $rq, Response $rs, array $args): Response
     {
         $twig = Twig::fromRequest($rq);
-        if (isset($_SESSION['user'])) {
-            $user = unserialize($_SESSION['user']);
-            if ($user[0]['admin'] !== 1) {
-                $user = null;
-            }
-        } else {
-            $user = null;
-        }
+        $user = Auth::getCurrentUser();
         try {
             return $twig->render($rs, 'acceuil.twig',['user'=>$user]);
         } catch (LoaderError|RuntimeError|SyntaxError $e) {

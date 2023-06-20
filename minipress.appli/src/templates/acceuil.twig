@@ -1,9 +1,7 @@
 {% extends "base.twig" %}
 
 {% block createUser %}
-    {% if user is not empty %}
-        <li><a href="{{ url_for('inscription.admin') }}">Créer un utilisateur</a></li>
-    {% endif %}
+
 {% endblock %}
 
 

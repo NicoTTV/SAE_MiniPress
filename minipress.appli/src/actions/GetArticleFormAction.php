@@ -5,6 +5,7 @@ namespace minipress\app\actions;
 use Exception;
 use minipress\app\services\categorie\CategorieService;
 use minipress\app\services\exceptions\CategorieNotFoundException;
+use minipress\app\services\utils\Auth;
 use minipress\app\services\utils\CsrfService;
 use minipress\app\services\exceptions\ExceptionTokenGenerate;
 use Slim\Exception\HttpInternalServerErrorException;
@@ -33,16 +34,11 @@ class GetArticleFormAction extends AbstractAction
         }catch (CategorieNotFoundException $e) {
             throw new HttpInternalServerErrorException($rq, $e->getMessage());
         }
-        $idUser = null;
-        try {
-            if (isset($_SESSION['user']))
-                $idUser = unserialize($_SESSION['user'])[0]['id_user'];
-        } catch (Exception $e) {
-            throw new HttpInternalServerErrorException($rq, $e->getMessage());
-        }
+        $user = Auth::getCurrentUser();
+
         try {
             $twig = Twig::fromRequest($rq);
-            return $twig->render($rs, 'article/articleForm.twig', ['csrf' => $csrf, 'idUser' => $idUser, "categories" => $categories]);
+            return $twig->render($rs, 'article/articleForm.twig', ['csrf' => $csrf, 'user' => $user, "categories" => $categories]);
         } catch (LoaderError|RuntimeError|SyntaxError $e) {
             throw new HttpInternalServerErrorException($rq, $e->getMessage());
         }

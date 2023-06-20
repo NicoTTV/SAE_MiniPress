@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use minipress\app\models\Article;
 use minipress\app\services\exceptions\ArticleNotFoundException;
 use minipress\app\services\exceptions\BadDataArticelException;
+use minipress\app\services\utils\Auth;
 use Ramsey\Uuid\Uuid;
 
 class ArticleService
@@ -62,9 +63,9 @@ class ArticleService
             throw new BadDataArticelException("Bad data : categorie");
         }
 
-        if (isset($_SESSION['user'])) {
-            $author = unserialize($_SESSION['user']);
-            $article['id_user'] = $author[0]['id_user'];
+        $author = Auth::getCurrentUser();
+        if ($author !== null) {
+            $article['id_user'] = $author['id_user'];
         }
         $article['id_article'] = Uuid::uuid4()->toString();
 

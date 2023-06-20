@@ -25,15 +25,16 @@
     <input type="text" placeholder="Rechercher un article">
     <nav id="nav-account">
         <ul>
-            <li><a href="" id="panier">Panier</a></li>
             {% if user is not empty %}
-                <li><a href="{{ url_for('deconnexion.post') }}" id="deconnexion" class="button">Deconnexion</a></li>
+                <form action="{{ url_for('deconnexion.post') }}" method="post">
+                    <button type="submit" class="sendingButton articleButton">Deconnexion</button>
+                </form>
+                {% if user.admin == 1 %}
+                    <li><a href="{{ url_for('inscription.admin') }}">Créer un utilisateur</a></li>
+                {% endif %}
             {% else %}
                 <li><a href="{{ url_for('connexion') }}" id="connexion" class="button">Connexion</a></li>
             {% endif %}
-            {% block createUser %}
-            
-            {% endblock %}
         </ul>
     </nav>
 </header>

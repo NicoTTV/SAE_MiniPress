@@ -5,15 +5,10 @@ namespace minipress\app\actions;
 use minipress\app\services\exceptions\BadDataUserException;
 use minipress\app\services\exceptions\UserNotFoundException;
 use minipress\app\services\exceptions\UserRegisterException;
-use minipress\app\services\user\UserService;
+use minipress\app\services\utils\Auth;
 use Slim\Exception\HttpInternalServerErrorException;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
-use Slim\Routing\RouteContext;
-use Slim\Views\Twig;
-use Twig\Error\LoaderError;
-use Twig\Error\RuntimeError;
-use Twig\Error\SyntaxError;
 
 class PostInscriptionByAdmin extends AbstractAction
 {
@@ -22,7 +17,7 @@ class PostInscriptionByAdmin extends AbstractAction
     {
         $data = $rq->getParsedBody();
         try {
-            $userService = new UserService();
+            $userService = new Auth();
             $userService->inscriptionByAdmin($data);
         } catch (BadDataUserException|UserNotFoundException|UserRegisterException $e) {
             throw new HttpInternalServerErrorException($rq, $e->getMessage());

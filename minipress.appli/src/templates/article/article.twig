@@ -17,11 +17,11 @@
         </div>
         <div class="list">
             {% for article in articles %}
-                {% if article.publie == 1 or (article.publie == 0 and user[0].id_user == article.id_user) %}
+                {% if article.publie == 1 or (article.publie == 0 and user.id_user == article.id_user) %}
                     <div class="case">
                         <h1>{{ article.titre }}</h1>
                         <p>{{ article.date_de_creation }}</p>
-                        {% if user[0].id_user == article.id_user and article.id_user is not empty %}
+                        {% if user.id_user == article.id_user and article.id_user is not empty %}
                         <form action="{{ url_for('publie.post') }}" method="post">
                             <input type="hidden" name="article" value="{{ article.id_article }}">
                             {% if article.publie == 0 %}
