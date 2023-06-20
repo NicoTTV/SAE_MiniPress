@@ -1,10 +1,10 @@
 <?php
 
-namespace actions;
+namespace minipress\api\actions;
 
-use models\Article;
 
-require_once __DIR__ . '/../models/article.php';
+
+use minipress\api\models\Article;
 
 class ArticleAuteurAction {
     public function __invoke($request, $response, $args) {
