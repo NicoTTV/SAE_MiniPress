@@ -19,7 +19,7 @@ class _ArticlePreview extends State<ArticlePreview> {
       subtitle: Column(
         children: [
           Text(widget.article.dateCreation),
-          Text(widget.article.auteur)
+          Text(widget.article.auteur!)
         ],
       ),
       onTap: () {

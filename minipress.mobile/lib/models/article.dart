@@ -1,7 +1,7 @@
 class Article {
   final String titre;
   final String dateCreation;
-  final String auteur;
+  final String? auteur;
 
   Article({
     required this.titre,

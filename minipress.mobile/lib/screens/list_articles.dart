@@ -19,32 +19,16 @@ class _ListArticles extends State<ListArticles> {
   late final Article article;
   List<Article> listArticles = <Article>[];
 
-  // static getArticles() {
-  //   return http.get(Uri.parse('http://docketu.iutnc.univ-lorraine.fr:41004/api/articles'));
-  // }
-
-
-  // Future<Article> _fetchArticle() async {
-  //   final response = await http.get(Uri.parse('http://docketu.iutnc.univ-lorraine.fr:41004/api/articles'));
-  //   print("coucou");
-  //   if (response.statusCode == 200) {
-  //     print("coucou");
-  //     return Article.fromJson(jsonDecode(response.body));
-  //   } else {
-  //     throw Exception('Failed to load article');
-  //   }
-  // }
-
   Future fetchArticle() async {
     var response = await http.get(Uri.parse('http://docketu.iutnc.univ-lorraine.fr:41004/api/articles'));
-
+    
     var articles = <Article>[];
 
     if (response.statusCode == 200) {
 
       var articlesJson = json.decode(response.body);
       for (var i in articlesJson) {
-        articles.add(Article.fromJson(articlesJson));
+        articles.add(Article.fromJson(i));
       }
     }
     return articles;
@@ -54,7 +38,6 @@ class _ListArticles extends State<ListArticles> {
   Widget build(BuildContext context) {
     fetchArticle().then((value) => {
       setState(() {
-        print("bonjour");
         listArticles.addAll(value);
       })   
     });
