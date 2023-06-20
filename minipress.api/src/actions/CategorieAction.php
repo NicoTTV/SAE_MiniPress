@@ -9,7 +9,8 @@ use Slim\Psr7\Response;
 class CategorieAction extends AbstractAction {
     public function __invoke(Request $request, Response $response, $args):Response {
         // Liste des catégories
-        $categories = Categorie::all();
+        $categorieService = new CategorieService();
+        $categories = $categorieService->getAllCategories();
 
         // Convertir le tableau en JSON
         $json = json_encode($categories);

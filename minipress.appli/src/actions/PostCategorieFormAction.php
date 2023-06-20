@@ -11,22 +11,17 @@ use Slim\Views\Twig;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
+use minipress\app\services\article\ArticleService;
+use minipress\app\services\categorie\CategorieService;
 
 class PostCategorieFormAction extends AbstractAction
 {
 
     public function __invoke(Request $rq, Response $rs, array $args): Response
     {
-        $catego=Categorie::all();
-        $catego->{'id-categorie'}=10;
-        $catego->titre=$_POST['titre'];
-        $catego->description=$_POST['description'];
-        $catego->created_at=new DateTime();
-        if($catego->save()){
-            $beta=['reponse'=>"Validate"];
-        }else{
-            $beta=['reponse'=>"Wrong"];
-        }
+        $sac=[$_POST['titre'],$_POST['description']];
+        $categorieService = new CategorieService();
+        $beta=['reponse'=>$categorieService->addCategories($sac)];
         $twig = Twig::fromRequest($rq);
         try {
             return $twig->render($rs, 'categorie/categorie.twig',$beta);

@@ -11,40 +11,39 @@ use Slim\Views\Twig;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
+use minipress\app\services\article\ArticleService;
+use minipress\app\services\categorie\CategorieService;
 
 class GetArticleAction extends AbstractAction
 {
-
     public function __invoke(Request $rq, Response $rs, array $args): Response
     {
+        $articleService = new ArticleService();
+        $categorieService = new CategorieService();
         $twig = Twig::fromRequest($rq);
 
-        if(isset($_GET['categorie'])){
-            $cate = $_GET['categorie'];
-            if($cate=="Aucune"){
-                $testing="Aucune Catégorie";
-                $info = Article::all();
-            }else{
-            $beta = Categorie::where('titre', $cate)->value('id-categorie');
-            $testing=$cate;
-            $info = Article::where('id_categorie',$beta)->get();
+        if (isset($_GET['categorie'])) {
+            $categorie = $_GET['categorie'];
+            if ($categorie == "Aucune") {
+                $testing = "Aucune Catégorie";
+                $info = $articleService->getArticles();
+            } else {
+                $beta = $categorieService->getIdFromTitre($categorie);
+                $testing = $categorie;
+                $info = $categorieService->getArticleByCategorie($beta);
             }
-        }else{
-            $testing="Aucune Catégorie";
-            $info = Article::all();
+        } else {
+            $testing = "Aucune Catégorie";
+            $info = $articleService->getArticles();
         }
 
-        $info2 = Categorie::all();
+        $info2 = $categorieService->getAllCategories();
 
-        $ajout=['articles'=>$info,'categories'=>$info2, 'nombre'=>$testing];
+        $ajout = ['articles' => $info, 'categories' => $info2, 'nombre' => $testing];
 
         try {
-            return $twig->render($rs, 'article/article.twig',$ajout);
-        } catch (LoaderError $e) {
-            throw new HttpInternalServerErrorException($rq, $e->getMessage());
-        } catch (RuntimeError $e) {
-            throw new HttpInternalServerErrorException($rq, $e->getMessage());
-        } catch (SyntaxError $e) {
+            return $twig->render($rs, 'article/article.twig', $ajout);
+        } catch (LoaderError | RuntimeError | SyntaxError $e) {
             throw new HttpInternalServerErrorException($rq, $e->getMessage());
         }
     }

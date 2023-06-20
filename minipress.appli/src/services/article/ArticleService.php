@@ -106,4 +106,9 @@ class ArticleService
         }
         return true;
     }
+
+    public function getArticleByCategorie(Int $beta): array{
+        $info = Article::where('id_categorie', $beta)->get()->toArray();
+        return $info;
+    }
 }
