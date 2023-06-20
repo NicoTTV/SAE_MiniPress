@@ -52,6 +52,12 @@ class _ListArticles extends State<ListArticles> {
                 children: <Widget>[
                   Text(
                     listArticles[index].titre
+                  ),
+                  Text(
+                    listArticles[index].dateCreation
+                  ),
+                  Text(
+                    listArticles[index].auteur!
                   )
                 ],
               ),
