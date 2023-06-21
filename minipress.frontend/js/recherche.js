@@ -1,6 +1,5 @@
 import { articles, displayArticles } from "./article.js";
 
-console.log("ANANAS");
 
 const pack = document.getElementById('date');
 pack.addEventListener('click', (event) => {

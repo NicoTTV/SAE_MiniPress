@@ -5,12 +5,15 @@ import {getAuteurById} from "./user.js";
 
 
 export let articles; // Variable pour stocker les articles
+// let articleId; // Variable pour stocker l'article complet
+
+
 /* Récupération des articles */
 fetch('http://localhost:41004/api/articles')
     .then(response => response.json())
     .then(data => {
         articles = data.articles; // Stockage des articles dans la variable
-        // console.log(articles);
+
         /* Tri des articles par date chronologique (dateCreation) dans l'ordre inverse */
         articles.sort((a, b) => new Date(b.date_de_creation) - new Date(a.date_de_creation));
 
@@ -45,6 +48,16 @@ function displayFullArticle(article) {
     const author = document.createElement('p');
     author.textContent = `Auteur : ${article.id_user}`;
     fullArticleContainer.appendChild(author);
+
+    /* Résumé */
+    const summary = document.createElement('p');
+    summary.textContent = article['resume'];
+    fullArticleContainer.appendChild(summary);
+
+    /* Image */
+    const image = document.createElement('img');
+    image.src = article['image'];
+    fullArticleContainer.appendChild(image);
 
     /* Contenu */
     const content = document.createElement('p');
@@ -81,14 +94,16 @@ export async function displayArticles(arti) {
         author.textContent = `Auteur : ${pseudo_user}`;
         articleItem.appendChild(author);
 
-        /* Résumé */
-        const summary = document.createElement('p');
-        summary.textContent = article.resume;
-        articleItem.appendChild(summary);
-
         /* Ajout d'un gestionnaire d'événement au clic sur le titre de l'article */
-        articleItem.addEventListener('click', (event) => {
-            displayFullArticle(article);
+        articleItem.addEventListener('click', async (event) => {
+            const articleId = article.links.self; // Récupération de l'ID de l'article
+            const response = await fetch(`http://localhost:41004${articleId}`)
+                .then(response => response.json())
+                .then(art => {
+                    return art.article[0];
+                });
+            // const fullArticle = await response.json();
+            await displayFullArticle(article);
         });
 
         /* Ajout de l'article à la liste */

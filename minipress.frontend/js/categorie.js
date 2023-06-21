@@ -8,8 +8,6 @@ import { updateArticleList } from './article.js';
 fetch('http://localhost:41004/api/categories')
     .then(response => response.json())
     .then(categories => {
-        /* Attribution des IDs aux catégories */
-
         /* Affichage initial des catégories dans l'interface */
         displayCategories(categories.categories);
     })
