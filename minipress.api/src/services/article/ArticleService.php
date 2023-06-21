@@ -55,4 +55,16 @@ class ArticleService
             throw new ArticleNotFoundException($e->getMessage());
         }
     }
+
+    /**
+     * @throws ArticleNotFoundException
+     */
+    public function getArticlesByAuteur($id): array
+    {
+        try {
+            return Article::select('id_article','titre','date_de_creation')->where('id_user', $id)->get()->toArray();
+        }catch (ModelNotFoundException $e){
+            throw new ArticleNotFoundException($e->getMessage());
+        }
+    }
 }
