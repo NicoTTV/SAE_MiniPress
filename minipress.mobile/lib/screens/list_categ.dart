@@ -19,7 +19,7 @@ class _ListCateg extends State<ListCateg> {
   Widget build(BuildContext context) {
     var categProvider = CategProvider();
     return FutureBuilder(
-      future: categProvider.fetchCateg(),
+        future: categProvider.fetchCateg(),
         builder: ((context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
@@ -31,10 +31,8 @@ class _ListCateg extends State<ListCateg> {
               },
             );
           } else {
-              return const Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
-        }
-      )
-    );
+        }));
   }
 }

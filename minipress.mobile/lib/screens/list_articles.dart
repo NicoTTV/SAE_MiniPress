@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:minipress_mobile/models/article.dart';
 import 'package:minipress_mobile/models/article_provider.dart';
 import 'package:minipress_mobile/screens/article_preview.dart';
+import 'package:provider/provider.dart';
 
 class ListArticles extends StatefulWidget {
   const ListArticles({super.key});
@@ -17,22 +18,23 @@ class _ListArticles extends State<ListArticles> {
 
   @override
   Widget build(BuildContext context) {
-    var articleProvider = ArticleProvider();
-    return FutureBuilder(
-      future: articleProvider.fetchArticle(),
-        builder: ((context, snapshot) {
-          if (snapshot.hasData) {
-            return ListView.builder(
-              itemCount: snapshot.data?.length,
-              itemBuilder: (context, index) {
-                return ArticlePreview(article: snapshot.data![index]);
-              },
-            );
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        }
-      )
+    return Consumer<ArticleProvider>(
+      builder: (BuildContext context, articleProvider, child) {
+        return FutureBuilder(
+            future: articleProvider.readData(),
+            builder: ((context, snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                  itemCount: snapshot.data?.length,
+                  itemBuilder: (context, index) {
+                    return ArticlePreview(article: snapshot.data![index]);
+                  },
+                );
+              } else {
+                return const Center(child: CircularProgressIndicator());
+              }
+            }));
+      },
     );
   }
 }
