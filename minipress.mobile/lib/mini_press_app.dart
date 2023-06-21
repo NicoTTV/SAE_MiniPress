@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './screens/list_articles.dart';
+import './screens/list_categ.dart';
 
 class MiniPressApp extends StatefulWidget {
   const MiniPressApp({super.key});
@@ -17,8 +18,25 @@ class _MiniPressAppState extends State<MiniPressApp> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Page d''accueil'),
-        ),
-        body: const ListArticles(),
+        ),      
+        // body: const SingleChildScrollView (
+        //   child: Column(
+        //     children: <Widget> [
+        //       ListArticles(),
+        //       ListCateg()
+        //     ],
+        //   )
+        // )  
+        body: const Column (
+          children: <Widget>[
+            Expanded(
+              child: ListCateg(),
+            ),
+            Expanded(
+              child: ListArticles(),
+            )
+          ],
+        ),  
       ),
       debugShowCheckedModeBanner: false,
     );

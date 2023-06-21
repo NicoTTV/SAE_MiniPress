@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import '../models/article.dart';
 
 class ArticlePreview extends StatefulWidget {
@@ -18,11 +17,11 @@ class _ArticlePreview extends State<ArticlePreview> {
       subtitle: Column(
         children: [
           Text(widget.article.dateCreation),
-          Text(widget.article.auteur!)
+          Text(widget.article.auteur)
         ],
       ),
       onTap: () {
-        print("click");
+
       },
     );
   }

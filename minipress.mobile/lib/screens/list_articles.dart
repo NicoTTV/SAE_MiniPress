@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:minipress_mobile/models/article.dart';
@@ -20,21 +18,22 @@ class _ListArticles extends State<ListArticles> {
   @override
   Widget build(BuildContext context) {
     var articleProvider = ArticleProvider();
-    return Scaffold(
-        body: FutureBuilder(
-            future: articleProvider.fetchArticle(),
-            builder: ((context, snapshot) {
-              if (snapshot.hasData) {
-                return ListView.builder(
-                  itemCount: snapshot.data?.length,
-                  itemBuilder: (context, index) {
-                    return ArticlePreview(article: snapshot.data![index]);
-                  },
-                );
-              } else {
-                return const Center(child: CircularProgressIndicator());
-              }
-            })));
+    return FutureBuilder(
+      future: articleProvider.fetchArticle(),
+        builder: ((context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              itemCount: snapshot.data?.length,
+              itemBuilder: (context, index) {
+                return ArticlePreview(article: snapshot.data![index]);
+              },
+            );
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        }
+      )
+    );
   }
 }
 

@@ -1,11 +1,8 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
-
 import 'article.dart';
 
 class ArticleProvider {
-
 
   Future<List<Article>> fetchArticle() async {
     var response = await http.get(
