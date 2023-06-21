@@ -23,8 +23,10 @@ class _ListCateg extends State<ListCateg> {
         builder: ((context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
+              scrollDirection: Axis.horizontal,
               itemCount: snapshot.data?.length,
               itemBuilder: (context, index) {
+                // print(snapshot.data![index].titre);
                 return CategPreview(categorie: snapshot.data![index]);
               },
             );

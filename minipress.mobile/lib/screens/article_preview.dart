@@ -21,7 +21,7 @@ class _ArticlePreview extends State<ArticlePreview> {
         ],
       ),
       onTap: () {
-
+        
       },
     );
   }

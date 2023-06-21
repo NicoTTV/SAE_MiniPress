@@ -27,13 +27,25 @@ class _MiniPressAppState extends State<MiniPressApp> {
         //     ],
         //   )
         // )  
-        body: const Column (
+        body: Column (
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Expanded(
-              child: ListCateg(),
+              child: Center(
+                child: Container(
+                  alignment: Alignment.center,
+                  color: Colors.amber,
+                  child: const ListCateg()
+                ),
+              )
             ),
             Expanded(
-              child: ListArticles(),
+              flex: 4,
+              child: Container(
+                color: Colors.blue,
+                child: const ListArticles()
+              )
             )
           ],
         ),  

@@ -14,11 +14,7 @@ class _CategPreview extends State<CategPreview> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Row(
-        children: [
-          Text(widget.categorie.titre)
-        ],
-      )
+        child: Text(widget.categorie.titre)
     );
   }
 }
