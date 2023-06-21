@@ -13,7 +13,6 @@ use Slim\Routing\RouteContext;
 class CateArctAction {
     public function __invoke($request, $response, $args) {
         // Liste des catégories
-        $id=$args['id'];
         $articleService = new ArticleService();
         try {
             $articles = $articleService->getArticles();
