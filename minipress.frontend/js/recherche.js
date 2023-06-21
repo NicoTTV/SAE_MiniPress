@@ -8,10 +8,10 @@ pack.addEventListener('click', (event) => {
     if (pack.innerHTML == '<p>Date Croissante</p>') {
         // Afficher bob dans l'ordre inversé
         displayArticles(bob);
-        pack.innerHTML = '<p>Date Croissante</p>';
+        pack.innerHTML = '<p>Date Décroissante</p>';
     } else {
         // Afficher bob dans l'ordre normal
         displayArticles(articles);
-        pack.innerHTML = '<p>Date Décroissante</p>';
+        pack.innerHTML = '<p>Date Croissante</p>';
     }
 });
