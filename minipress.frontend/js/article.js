@@ -26,7 +26,7 @@ fetch('http://localhost:41004/api/articles')
 
 
 /* Fonction pour afficher l'article complet */
-function displayFullArticle(article) {
+async function displayFullArticle(article) {
     /* Effacement du contenu précédent de la liste des articles */
     const articleList = document.getElementById('articles');
     articleList.innerHTML = '';
@@ -46,7 +46,8 @@ function displayFullArticle(article) {
 
     /* Auteur */
     const author = document.createElement('p');
-    author.textContent = `Auteur : ${article.id_user}`;
+    const ditpassa = await getAuteurById(article.id_user);
+    author.textContent = `Auteur : ${ditpassa}`;
     fullArticleContainer.appendChild(author);
 
     /* Résumé */
@@ -103,7 +104,7 @@ export async function displayArticles(arti) {
                     return art.article[0];
                 });
             // const fullArticle = await response.json();
-            await displayFullArticle(article);
+            await displayFullArticle(response);
         });
 
         /* Ajout de l'article à la liste */
