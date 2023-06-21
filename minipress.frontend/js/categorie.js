@@ -9,12 +9,9 @@ fetch('http://localhost:41004/api/categories')
     .then(response => response.json())
     .then(categories => {
         /* Attribution des IDs aux catégories */
-        categories.forEach((category, index) => {
-            category.id = String(index + 1); // Attribution d'un ID en tant que chaîne de caractères
-        });
 
         /* Affichage initial des catégories dans l'interface */
-        displayCategories(categories);
+        displayCategories(categories.categories);
     })
     .catch(error => {
         console.error('Une erreur s\'est produite lors de la récupération des catégories:', error);

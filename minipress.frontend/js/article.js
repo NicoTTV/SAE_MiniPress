@@ -4,16 +4,13 @@
 import {getAuteurById} from "./user.js";
 
 
-let articles; // Variable pour stocker les articles
-
-
+export let articles; // Variable pour stocker les articles
 /* Récupération des articles */
 fetch('http://localhost:41004/api/articles')
     .then(response => response.json())
     .then(data => {
-        articles = data; // Stockage des articles dans la variable
+        articles = data.articles; // Stockage des articles dans la variable
         // console.log(articles);
-
         /* Tri des articles par date chronologique (dateCreation) dans l'ordre inverse */
         articles.sort((a, b) => new Date(b.date_de_creation) - new Date(a.date_de_creation));
 
@@ -60,12 +57,12 @@ function displayFullArticle(article) {
 
 
 /* Fonction pour afficher les articles */
-async function displayArticles(articles) {
+export async function displayArticles(arti) {
     const articleList = document.getElementById('articles');
     articleList.innerHTML = ''; // Réinitialisation de la liste des articles
 
     /* Affichage pour chaque article */
-    for (const article of articles) {
+    for (const article of arti) {
         const articleItem = document.createElement('div');
 
         /* Titre */
