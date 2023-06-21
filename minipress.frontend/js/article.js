@@ -60,12 +60,12 @@ function displayFullArticle(article) {
 
 
 /* Fonction pour afficher les articles */
-function displayArticles(articles) {
+async function displayArticles(articles) {
     const articleList = document.getElementById('articles');
     articleList.innerHTML = ''; // Réinitialisation de la liste des articles
 
     /* Affichage pour chaque article */
-    articles.forEach(article => {
+    for (const article of articles) {
         const articleItem = document.createElement('div');
 
         /* Titre */
@@ -80,7 +80,7 @@ function displayArticles(articles) {
 
         /* Auteur */
         const author = document.createElement('p');
-        let pseudo_user = getAuteurById(article.id_user);
+        const pseudo_user = await getAuteurById(article.id_user);
         author.textContent = `Auteur : ${pseudo_user}`;
         articleItem.appendChild(author);
 
@@ -96,7 +96,7 @@ function displayArticles(articles) {
 
         /* Ajout de l'article à la liste */
         articleList.appendChild(articleItem);
-    });
+    }
 }
 
 
