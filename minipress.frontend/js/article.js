@@ -26,7 +26,7 @@ fetch('http://localhost:41004/api/articles')
 
 
 /* Fonction pour afficher l'article complet */
-function displayFullArticle(article) {
+async function displayFullArticle(article) {
     /* Effacement du contenu précédent de la liste des articles */
     const articleList = document.getElementById('articles');
     articleList.innerHTML = '';
@@ -46,7 +46,8 @@ function displayFullArticle(article) {
 
     /* Auteur */
     const author = document.createElement('p');
-    author.textContent = `Auteur : ${article.id_user}`;
+    const pseudo_user = await getAuteurById(article.id_user);
+    author.textContent = `Auteur : ${pseudo_user}`;
     fullArticleContainer.appendChild(author);
 
     /* Contenu */
