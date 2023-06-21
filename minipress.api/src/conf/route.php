@@ -10,7 +10,7 @@ use Slim\App;
 
 return function (App $app) {
     $app->get('/api/categories', CategorieAction::class);
-    $app->get('/api/categories/{id}/articles', CateArctAction::class);
+    $app->get('/api/categories/{id}/articles', CateArctAction::class)->setName('categorie2Articles');
     $app->get('/api/articles', ArticleAction::class)->setName('articles');
     $app->get('/api/articles/{id}', ArticleCompletAction::class)->setName('articleId');
     $app->get('/api/auteurs/{id}/articles', ArticleAuteurAction::class);

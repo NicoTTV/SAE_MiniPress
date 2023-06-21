@@ -5,15 +5,42 @@ namespace minipress\api\actions;
 
 
 use minipress\api\models\Article;
+use minipress\api\services\article\ArticleService;
+use minipress\api\services\exceptions\ArticleNotFoundException;
+use Slim\Exception\HttpInternalServerErrorException;
+use Slim\Routing\RouteContext;
 
 class CateArctAction {
     public function __invoke($request, $response, $args) {
         // Liste des catégories
         $id=$args['id'];
-        $articles = Article::select('titre','date_de_creation','id_user')->where('id_categorie', '=', $id)->get()->toArray();
+        $articleService = new ArticleService();
+        try {
+            $articles = $articleService->getArticles();
+        } catch (ArticleNotFoundException $e) {
+            throw new HttpInternalServerErrorException($request, $e->getMessage());
+        }
+
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+
+        $articlesFormated = [];
+        foreach ($articles as $article) {
+            $article['links'] = [
+                'self' => [
+                    'href' => $routeParser->urlFor('articleId', ['id' => $article['id_article']])
+                ]
+            ];
+            $articlesFormated[] = $article;
+        }
+
+        $dataFormated = [
+            'type' => 'collection',
+            'count' => count($articles),
+            'articles' => $articlesFormated
+        ];
 
         // Convertir le tableau en JSON
-        $json = json_encode($articles);
+        $json = json_encode($dataFormated);
 
         // Ajouter le contenu JSON à la réponse
         $response->getBody()->write($json);
