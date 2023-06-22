@@ -18,13 +18,16 @@ class _MiniPressAppState extends State<MiniPressApp> {
     return MaterialApp(
       title: 'Mini Press',
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: const Text('Page d\'accueil'),
         ),
         body: Column(
           children: <Widget>[
             const Expanded(child: ListCateg()),
-            const Expanded(child: ListArticles(),flex: 10),
+            const Expanded(
+              child: ListArticles(),
+              flex: 10),
             Expanded(
                 child: Container(
               decoration: const BoxDecoration(
