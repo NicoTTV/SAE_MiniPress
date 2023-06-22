@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import '../models/article.dart';
 
 class ArticlePreview extends StatefulWidget {
-
   final Article article;
 
   const ArticlePreview({super.key, required this.article});
@@ -14,17 +12,23 @@ class ArticlePreview extends StatefulWidget {
 class _ArticlePreview extends State<ArticlePreview> {
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: const Text('Titre'),
-      subtitle: const Column(
-        children: [
-          Text("Date de création"),
-          Text("Auteur")
-        ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: const BoxDecoration(
+            border: Border(bottom: BorderSide(color: Color(0xFFFF595A)))),
+        child: ListTile(
+          textColor: Colors.black,
+          title: Text(widget.article.titre),
+          subtitle: Column(
+            children: [
+              Text(widget.article.dateCreation),
+              Text(widget.article.auteur)
+            ],
+          ),
+          onTap: () {},
+        ),
       ),
-      onTap: () {
-        print("click");
-      },
     );
   }
 }
