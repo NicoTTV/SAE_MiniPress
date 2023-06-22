@@ -17,7 +17,7 @@ class _ArticlePreview extends State<ArticlePreview> {
       padding: const EdgeInsets.all(8.0),
       child: Container(
         decoration: const BoxDecoration(
-            border: Border(bottom: BorderSide(color: Color(0xFFFF595A)))),
+            border: Border(bottom: BorderSide(color: Color.fromARGB(255, 58, 210, 241)))),
         child: ListTile(
           textColor: Colors.black,
           title: Text(widget.article.titre),
