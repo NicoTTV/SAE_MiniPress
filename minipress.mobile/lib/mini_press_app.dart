@@ -15,6 +15,7 @@ class MiniPressApp extends StatefulWidget {
 class _MiniPressAppState extends State<MiniPressApp> {
   @override
   Widget build(BuildContext context) {
+    Provider.of<ArticleProvider>(context, listen: false).fetchArticles();
     return MaterialApp(
       title: 'Mini Press',
       home: Scaffold(
@@ -25,9 +26,7 @@ class _MiniPressAppState extends State<MiniPressApp> {
         body: Column(
           children: <Widget>[
             const Expanded(child: ListCateg()),
-            const Expanded(
-              child: ListArticles(),
-              flex: 10),
+            const Expanded(child: ListArticles(), flex: 10),
             Expanded(
                 child: Container(
               decoration: const BoxDecoration(
