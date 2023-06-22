@@ -1,24 +1,26 @@
-    <!DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-    <head>
-        <meta charset="UTF-8" />
-        <title>MiniPress</title>
-        <link rel="stylesheet" href="css/article.css" />
-        <script type="module" src="js/user.js" defer></script>
-        <script type="module" src="js/article.js" defer></script>
-        <script type="module" src="js/recherche.js" defer></script>
-        <script type="module" src="js/categorie.js" defer></script>
-    </head>
+<head>
+    <meta charset="UTF-8" />
+    <title>MiniPress</title>
+    <link rel="stylesheet" href="css/index.css" />
+    <script type="module" src="js/user.js" defer></script>
+    <script type="module" src="js/article.js" defer></script>
+    <script type="module" src="js/recherche.js" defer></script>
+    <script type="module" src="js/categorie.js" defer></script>
+</head>
 
-    <body>
+<body>
     <h1>MiniPress</h1>
+
     <div>
     <ul id="navigation">
         <li class="bar" id="date"><p>Date</p></li>
         <li class="bar" id="texto">
             <form id="myForm">
-                <input type="text" id="myInput">
+                <label for="myInput"></label>
+                <input type="text" id="myInput" placeholder="Recherche">
                 <input type="submit" value="Valider">
             </form>
         </li>
@@ -26,18 +28,17 @@
     </ul>
     </div>
 
-    <h2>Articles</h2>
-
+    <h2 class="soustitre">Articles</h2>
     <div id="article-list">
         <ul id="articles">
         </ul>
     </div>
 
-    <h2>Catégories</h2>
+    <h2 class="soustitre">Catégories</h2>
     <div id="category-list">
         <ul id="categories">
         </ul>
     </div>
-    </body>
+</body>
 
-    </html>
+</html>

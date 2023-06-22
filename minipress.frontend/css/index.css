@@ -2,10 +2,20 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: #d7d7d7;
 }
+
+h1 {
+  font-family: Impact, sans-serif;
+  color: #5b3333;
+  text-align: center;
+  font-size:5.0em;
+}
+
 nav {
   flex-grow: 0;
 }
+
 .noteapp_menu {
   display: flex;
   flex-direction: row;
@@ -45,9 +55,11 @@ nav {
   border-bottom: 1px solid black;
   padding: 0.5rem;
 }
+
 .note_list_item:hover {
   color: white;
 }
+
 .note_list_item-selected {
   background-color: gainsboro;
   color: dimgrey;
@@ -63,6 +75,7 @@ nav {
   flex-direction: column;
   align-items: stretch;
 }
+
 .create_edit_note-hidden {
   display: none;
 }
@@ -71,12 +84,14 @@ nav {
   height: 20rem;
   border-color: gainsboro;
 }
+
 .create_edit_note button {
   color: gainsboro;
   background-color: dimgrey;
 }
 
-ul#navigation{
+ul#navigation {
+  text-align: center;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -84,11 +99,17 @@ ul#navigation{
   background-color: #333;
 }
 
-li.bar{
-  float: left;
+.soustitre {
+  font-family:sans-serif;
+  font-size:2.0em;
 }
 
-li.bar p{
+li.bar {
+  display: inline-block;
+  font-family:sans-serif;
+}
+
+li.bar p {
   display: block;
   color: white;
   text-align: center;
@@ -109,4 +130,28 @@ li.bar p:hover {
 #navigation {
   display: flex;
   align-items: center;
+}
+
+ul#categories {
+  display: flex;
+  justify-content: center;
+  background-color: #333;
+  padding: 0.5rem;
+  list-style-type: none; /* supprime les puces */
+}
+
+ul#categories li {
+  margin: 0 0.5rem;
+}
+
+ul#categories li a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+ul#categories li a:hover {
+  background-color: #111;
 }
