@@ -79,4 +79,16 @@ class ArticleService
             throw new ArticleNotFoundException($e->getMessage());
         }
     }
+
+    /**
+     * @throws ArticleNotFoundException
+     */
+    public function getArticleByCategorie($id): array
+    {
+        try {
+            return Article::where('id_categorie', $id)->get()->toArray();
+        }catch (ModelNotFoundException $e){
+            throw new ArticleNotFoundException($e->getMessage());
+        }
+    }
 }

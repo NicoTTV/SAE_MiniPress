@@ -1,18 +1,21 @@
 'use strict';
 
 
-import {getAuteurById} from "./user.js";
+import {getAuteur, getAuteurById} from "./user.js";
+import {status2} from "./recherche.js";
 
 
-let articles; // Variable pour stocker les articles
+export let articles; // Variable pour stocker les articles
 
+export let activable=true;
+
+export let categoID;
 
 /* Récupération des articles */
 fetch('http://localhost:41004/api/articles')
     .then(response => response.json())
     .then(data => {
-        articles = data; // Stockage des articles dans la variable
-        // console.log(articles);
+        articles = data.articles; // Stockage des articles dans la variable
 
         /* Tri des articles par date chronologique (dateCreation) dans l'ordre inverse */
         articles.sort((a, b) => new Date(b.date_de_creation) - new Date(a.date_de_creation));
@@ -26,7 +29,8 @@ fetch('http://localhost:41004/api/articles')
 
 
 /* Fonction pour afficher l'article complet */
-function displayFullArticle(article) {
+async function displayFullArticle(article) {
+    activable=false;
     /* Effacement du contenu précédent de la liste des articles */
     const articleList = document.getElementById('articles');
     articleList.innerHTML = '';
@@ -46,8 +50,19 @@ function displayFullArticle(article) {
 
     /* Auteur */
     const author = document.createElement('p');
-    author.textContent = `Auteur : ${article.id_user}`;
+    const pseudo_user = await getAuteurById(article.id_user);
+    author.textContent = `Auteur : ${pseudo_user}`;
     fullArticleContainer.appendChild(author);
+
+    /* Résumé */
+    const summary = document.createElement('p');
+    summary.textContent = article.resume;
+    fullArticleContainer.appendChild(summary);
+
+    /* Image */
+    const image = document.createElement('img');
+    image.src = article.image_url;
+    fullArticleContainer.appendChild(image);
 
     /* Contenu */
     const content = document.createElement('p');
@@ -60,12 +75,13 @@ function displayFullArticle(article) {
 
 
 /* Fonction pour afficher les articles */
-async function displayArticles(articles) {
+export async function displayArticles(arti) {
+    activable=true;
     const articleList = document.getElementById('articles');
     articleList.innerHTML = ''; // Réinitialisation de la liste des articles
 
     /* Affichage pour chaque article */
-    for (const article of articles) {
+    for (const article of arti) {
         const articleItem = document.createElement('div');
 
         /* Titre */
@@ -84,14 +100,16 @@ async function displayArticles(articles) {
         author.textContent = `Auteur : ${pseudo_user}`;
         articleItem.appendChild(author);
 
-        /* Résumé */
-        const summary = document.createElement('p');
-        summary.textContent = article.resume;
-        articleItem.appendChild(summary);
-
         /* Ajout d'un gestionnaire d'événement au clic sur le titre de l'article */
-        articleItem.addEventListener('click', (event) => {
-            displayFullArticle(article);
+        articleItem.addEventListener('click', async (event) => {
+            const articleUrl = article.links.self.href;
+            // Récupération de l'URL de l'article
+            const response = await fetch(`http://localhost:41004${articleUrl}`)
+                .then(response => response.json())
+                .then(art => {
+                    return art.article[0];
+                });
+            await displayFullArticle(response);
         });
 
         /* Ajout de l'article à la liste */
@@ -102,13 +120,17 @@ async function displayArticles(articles) {
 
 /* Fonction pour mettre à jour l'affichage des articles */
 export function updateArticleList(categoryId) {
+    activable=true;
     if (categoryId === 'all') {
+        categoID=articles;
         displayArticles(articles); // Afficher tous les articles
     } else {
         // Récupérer les articles de la catégorie sélectionnée
         fetch(`http://localhost:41004/api/categories/${categoryId}/articles`)
             .then(response => response.json())
-            .then(articlesByCategory => {
+            .then(category => {
+                const articlesByCategory = category.articles;
+                categoID=articlesByCategory;// Récupérer les articles de la catégorie
                 displayArticles(articlesByCategory);
             })
             .catch(error => {
@@ -116,3 +138,19 @@ export function updateArticleList(categoryId) {
             });
     }
 }
+
+document.getElementById("myForm").addEventListener("submit", async function (event) {
+    event.preventDefault(); // Empêche le rechargement de la page
+    const myInput = document.getElementById('myInput');
+    const inputValue = myInput.value;
+    const filteredByTitre = articles.filter(item => item.titre.includes(inputValue));
+    if (status2 === 1) {
+        categoID = filteredByTitre;
+    } else {
+        let checkos = await getAuteur(inputValue);
+        console.log(articles.filter(item => item.id_user && item.id_user.includes(checkos)));
+        const filteredByAuteur = articles.filter(item => item.id_user && item.id_user.includes(checkos));
+        categoID = [...new Set([...filteredByTitre, ...filteredByAuteur])];
+    }
+    displayArticles(categoID);
+});

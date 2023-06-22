@@ -28,3 +28,15 @@ export async function getAuteurById(auteurId) {
     // Gérer le cas où aucun auteur n'est trouvé avec l'auteurId spécifié
     return null;
 }
+
+export async function getAuteur(auteurPseudo) {
+    if (!auteurs) {
+        await fetchAuteurs();
+    }
+    const auteur = auteurs.find(auteur => auteur.pseudo.includes(auteurPseudo));
+    if (auteur) {
+        return auteur.id_user;
+    }
+    // Gérer le cas où aucun auteur n'est trouvé avec l'auteurId spécifié
+    return null;
+}
