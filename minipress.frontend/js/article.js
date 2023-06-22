@@ -5,8 +5,8 @@ import {getAuteurById} from "./user.js";
 
 
 export let articles; // Variable pour stocker les articles
-// let articleId; // Variable pour stocker l'article complet
 
+export let categoID=0;
 
 /* Récupération des articles */
 fetch('http://localhost:41004/api/articles')
@@ -97,7 +97,8 @@ export async function displayArticles(arti) {
 
         /* Ajout d'un gestionnaire d'événement au clic sur le titre de l'article */
         articleItem.addEventListener('click', async (event) => {
-            const articleUrl = article.links.self; // Récupération de l'URL de l'article
+            const articleUrl = article.links.self.href;
+            // Récupération de l'URL de l'article
             const response = await fetch(`http://localhost:41004${articleUrl}`)
                 .then(response => response.json())
                 .then(art => {
@@ -115,14 +116,14 @@ export async function displayArticles(arti) {
 /* Fonction pour mettre à jour l'affichage des articles */
 export function updateArticleList(categoryId) {
     if (categoryId === 'all') {
+        categoID=0;
         displayArticles(articles); // Afficher tous les articles
     } else {
+        categoID=categoryId;
         // Récupérer les articles de la catégorie sélectionnée
-        console.log(categoryId);
         fetch(`http://localhost:41004/api/categories/${categoryId}/articles`)
             .then(response => response.json())
             .then(category => {
-                console.log(category.articles);
                 const articlesByCategory = category.articles; // Récupérer les articles de la catégorie
                 displayArticles(articlesByCategory);
             })

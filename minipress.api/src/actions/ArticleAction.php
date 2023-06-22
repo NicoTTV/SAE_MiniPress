@@ -53,8 +53,10 @@ class ArticleAction {
         $articlesFormated = [];
         foreach ($articles as $article) {
             $article['links'] = [
-                'self' => $routeParser->urlFor('articleId', ['id' => $article['id_article']]),
-            ];
+                'self' => [
+                    'href' => $routeParser->urlFor('articleId', ['id' => $article['id_article']])
+                ]
+                ];
             unset($article['id_article']);
             $articlesFormated[] = $article;
         }
