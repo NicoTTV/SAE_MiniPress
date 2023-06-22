@@ -46,18 +46,18 @@ async function displayFullArticle(article) {
 
     /* Auteur */
     const author = document.createElement('p');
-    const ditpassa = await getAuteurById(article.id_user);
-    author.textContent = `Auteur : ${ditpassa}`;
+    const pseudo_user = await getAuteurById(article.id_user);
+    author.textContent = `Auteur : ${pseudo_user}`;
     fullArticleContainer.appendChild(author);
 
     /* Résumé */
     const summary = document.createElement('p');
-    summary.textContent = article['resume'];
+    summary.textContent = article.resume;
     fullArticleContainer.appendChild(summary);
 
     /* Image */
     const image = document.createElement('img');
-    image.src = article['image'];
+    image.src = article.image_url;
     fullArticleContainer.appendChild(image);
 
     /* Contenu */
@@ -97,13 +97,12 @@ export async function displayArticles(arti) {
 
         /* Ajout d'un gestionnaire d'événement au clic sur le titre de l'article */
         articleItem.addEventListener('click', async (event) => {
-            const articleId = article.links.self; // Récupération de l'ID de l'article
-            const response = await fetch(`http://localhost:41004${articleId}`)
+            const articleUrl = article.links.self; // Récupération de l'URL de l'article
+            const response = await fetch(`http://localhost:41004${articleUrl}`)
                 .then(response => response.json())
                 .then(art => {
                     return art.article[0];
                 });
-            // const fullArticle = await response.json();
             await displayFullArticle(response);
         });
 
@@ -119,9 +118,10 @@ export function updateArticleList(categoryId) {
         displayArticles(articles); // Afficher tous les articles
     } else {
         // Récupérer les articles de la catégorie sélectionnée
-        fetch(`http://localhost:41004/api/categories/${categoryId}/articles`)
+        fetch(`http://localhost:41004/api/categories/${categoryId}`)
             .then(response => response.json())
-            .then(articlesByCategory => {
+            .then(category => {
+                const articlesByCategory = category.articles; // Récupérer les articles de la catégorie
                 displayArticles(articlesByCategory);
             })
             .catch(error => {

@@ -59,7 +59,3 @@ function displayCategories(categories) {
         categoryList.appendChild(categoryItem);
     });
 }
-
-
-
-
