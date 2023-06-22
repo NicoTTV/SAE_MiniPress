@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import './screens/list_articles.dart';
 import './screens/list_categ.dart';
+import 'models/article_provider.dart';
 
 class MiniPressApp extends StatefulWidget {
   const MiniPressApp({super.key});
@@ -10,45 +12,24 @@ class MiniPressApp extends StatefulWidget {
 }
 
 class _MiniPressAppState extends State<MiniPressApp> {
-
   @override
   Widget build(BuildContext context) {
+    Provider.of<ArticleProvider>(context, listen: false).fetchArticles();
     return MaterialApp(
       title: 'Mini Press',
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Page d''accueil'),
-        ),      
-        // body: const SingleChildScrollView (
-        //   child: Column(
-        //     children: <Widget> [
-        //       ListArticles(),
-        //       ListCateg()
-        //     ],
-        //   )
-        // )  
-        body: Column (
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          title: const Text('Page d' 'accueil'),
+        ),
+        body: Column(
           children: <Widget>[
+            const Expanded(child: ListCateg()),
             Expanded(
-              child: Center(
-                child: Container(
-                  alignment: Alignment.center,
-                  color: Colors.amber,
-                  child: const ListCateg()
-                ),
-              )
-            ),
-            Expanded(
-              flex: 4,
-              child: Container(
-                color: Colors.blue,
-                child: const ListArticles()
-              )
-            )
+                flex: 10,
+                child:
+                    Container(color: Colors.blue, child: const ListArticles()))
           ],
-        ),  
+        ),
       ),
       debugShowCheckedModeBanner: false,
     );

@@ -20,9 +20,7 @@ class _ArticlePreview extends State<ArticlePreview> {
           Text(widget.article.auteur)
         ],
       ),
-      onTap: () {
-        
-      },
+      onTap: () {},
     );
   }
 }
