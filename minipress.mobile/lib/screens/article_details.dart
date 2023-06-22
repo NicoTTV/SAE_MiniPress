@@ -20,7 +20,7 @@ class _ArticleDetails extends State<ArticleDetails> {
     Provider.of<ArticleProvider>(context, listen: false).fetchDetailsArticle(widget.article.lienDetails['self']['href']);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Détails de l''article'),
+        title: const Text('Détails de l\'article'),
       ),
       body: Consumer<ArticleProvider>(
         builder: (BuildContext context, articleProvider, child) {

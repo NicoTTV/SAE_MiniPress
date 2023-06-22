@@ -19,7 +19,7 @@ class _MiniPressAppState extends State<MiniPressApp> {
       title: 'Mini Press',
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Page d' 'accueil'),
+          title: const Text('Page d\'accueil'),
         ),
         body: Column(
           children: <Widget>[
