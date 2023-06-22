@@ -147,35 +147,16 @@ export function updateArticleList(categoryId) {
 document.getElementById("myForm").addEventListener("submit", async function (event) {
     event.preventDefault(); // Empêche le rechargement de la page
     const myInput = document.getElementById('myInput');
-    const inputValue = myInput.value;
-    const filteredByTitre = articles.filter(item => item.titre.includes(inputValue));
+    const inputValue = myInput.value.toLowerCase();
+    const filteredByTitre = articles.filter(item => item.titre.toLowerCase().includes(inputValue));
     if (status2 === 1) {
         categoID = filteredByTitre;
     } else {
-        const filteredByResume = articles.filter(item => item['resume'].includes(inputValue));
+        const filteredByResume = articles.filter(item => item['resume'].toLowerCase().includes(inputValue));
         categoID = [...new Set([...filteredByTitre, ...filteredByResume])];
     }
     displayArticles(categoID);
 });
-
-function getWordInResume(Value, artic) {
-    return new Promise((resolve, reject) => {
-        fetch(`http://localhost:41004${artic.links.self.href}`)
-            .then(response => response.json())
-            .then(data => {
-                let acte = data.article['0']['resume'];
-                if (acte.includes(Value)) {
-                    resolve(true);
-                } else {
-                    resolve(false);
-                }
-            })
-            .catch(error => {
-                console.error('Une erreur s\'est produite lors de la récupération des articles:', error);
-                reject(error);
-            });
-    });
-}
 
 function markdownParser(text){
     const toHTML = text
