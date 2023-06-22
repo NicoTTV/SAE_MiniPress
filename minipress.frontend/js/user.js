@@ -29,6 +29,7 @@ export async function getAuteurById(auteurId) {
     return null;
 }
 
+
 export async function getAuteur(auteurPseudo) {
     if (!auteurs) {
         await fetchAuteurs();

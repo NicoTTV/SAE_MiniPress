@@ -6,10 +6,9 @@ import {status2} from "./recherche.js";
 
 
 export let articles; // Variable pour stocker les articles
-
 export let activable=true;
-
 export let categoID;
+
 
 /* Récupération des articles */
 fetch('http://localhost:41004/api/articles')
@@ -61,7 +60,7 @@ async function displayFullArticle(article) {
 
     /* Image */
     const image = document.createElement('img');
-    image.src = article.image_url;
+    image.src = '/img/' + article.image;
     fullArticleContainer.appendChild(image);
 
     /* Contenu */
@@ -138,6 +137,7 @@ export function updateArticleList(categoryId) {
             });
     }
 }
+
 
 document.getElementById("myForm").addEventListener("submit", async function (event) {
     event.preventDefault(); // Empêche le rechargement de la page
