@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/article.dart';
+import 'article_details.dart';
 
 class ArticlePreview extends StatefulWidget {
   final Article article;
@@ -26,7 +27,12 @@ class _ArticlePreview extends State<ArticlePreview> {
               Text(widget.article.auteur)
             ],
           ),
-          onTap: () {},
+          onTap: () async {
+            await Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ArticleDetails(article: widget.article))
+        );
+          },
         ),
       ),
     );

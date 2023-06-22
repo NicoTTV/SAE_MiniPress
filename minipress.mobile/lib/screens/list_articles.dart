@@ -41,23 +41,3 @@ class _ListArticles extends State<ListArticles> {
     );
   }
 }
-
-
-    // return Scaffold(
-    //   body: FutureBuilder(
-    //     future: _fetchArticle(),
-    //     builder: (BuildContext context, AsyncSnapshot snapshot) {
-    //       if (snapshot.hasData) {
-    //         return ListView.builder(
-    //           itemCount: snapshot.data?.length,
-    //           itemBuilder: (BuildContext context, int index) {
-    //             return ArticlePreview(article: snapshot.data[index]);
-    //           },
-    //         );
-    //       }
-    //       else {
-    //         return const Center(child: CircularProgressIndicator());
-    //       }
-    //     },
-    //   ),
-    // );
