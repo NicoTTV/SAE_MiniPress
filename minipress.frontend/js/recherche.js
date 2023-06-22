@@ -6,7 +6,7 @@ export let status2 =1;
 const pack = document.getElementById('date');
 
 
-pack.addEventListener('click', async (event) => {
+pack.addEventListener('click', async () => {
     if(activable){
     let bob = categoID.reverse();
         if (status === 2) {
@@ -25,7 +25,7 @@ pack.addEventListener('click', async (event) => {
 
 
 const pack2 = document.getElementById('rech');
-pack2.addEventListener('click', async (event) => {
+pack2.addEventListener('click', async () => {
         if(status2===2){
             status2=1;
             pack2.innerHTML = '<p>Titre</p>';
