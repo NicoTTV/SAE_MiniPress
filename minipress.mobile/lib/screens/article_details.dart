@@ -30,13 +30,20 @@ class _ArticleDetails extends State<ArticleDetails> {
               if (snapshot.hasData) {
                 return Column(
                   children: [
-                    Text(
-                      snapshot.data['titre'],
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 48 
+                    const SizedBox(height: 20),
+                    Container(
+                      decoration: const BoxDecoration(
+                        border: Border(bottom: BorderSide(color: Colors.black))
+                      ),
+                      child: Text(
+                        snapshot.data['titre'],
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 48 
+                        ),
                       ),
                     ),
+                    const SizedBox(height: 40),
                     Column(
                       children: [
                         const Text(
@@ -54,6 +61,7 @@ class _ArticleDetails extends State<ArticleDetails> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 20),
                     Column(
                       children: [
                         const Text(
@@ -71,6 +79,7 @@ class _ArticleDetails extends State<ArticleDetails> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 50),
                     Text(
                       ' - Article écrit le ${snapshot.data['date_de_creation']}',
                       style: const TextStyle(
