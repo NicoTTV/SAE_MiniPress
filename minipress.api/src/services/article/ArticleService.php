@@ -14,7 +14,7 @@ class ArticleService
     public function getArticles(): array
     {
         try {
-            return Article::select('id_article','titre','date_de_creation','id_user')->get()->toArray();
+            return Article::select('id_article','titre','date_de_creation','id_user','resume')->get()->toArray();
         }catch (ModelNotFoundException $e){
             throw new ArticleNotFoundException($e->getMessage());
         }
@@ -26,7 +26,7 @@ class ArticleService
     public function orderArticleByDateDesc(): array
     {
         try {
-            return Article::select('id_article','titre','date_de_creation','id_user')->orderBy('date_de_creation', 'desc')->get()->toArray();
+            return Article::select('id_article','titre','date_de_creation','id_user','resume')->orderBy('date_de_creation', 'desc')->get()->toArray();
         }catch (ModelNotFoundException $e){
             throw new ArticleNotFoundException($e->getMessage());
         }
@@ -38,7 +38,7 @@ class ArticleService
     public function orderArticleByDateAsc(): array
     {
         try {
-            return Article::select('id_article','titre','date_de_creation','id_user')->orderBy('date_de_creation', 'asc')->get()->toArray();
+            return Article::select('id_article','titre','date_de_creation','id_user','resume')->orderBy('date_de_creation', 'asc')->get()->toArray();
         }catch (ModelNotFoundException $e){
             throw new ArticleNotFoundException($e->getMessage());
         }
@@ -50,7 +50,7 @@ class ArticleService
     public function orderArticleByAuteur(): array
     {
         try {
-            return Article::select('id_article','titre','date_de_creation','id_user')->orderBy('id_user')->get()->toArray();
+            return Article::select('id_article','titre','date_de_creation','id_user','resume')->orderBy('id_user')->get()->toArray();
         }catch (ModelNotFoundException $e){
             throw new ArticleNotFoundException($e->getMessage());
         }
