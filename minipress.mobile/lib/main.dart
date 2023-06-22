@@ -6,4 +6,4 @@ import 'package:provider/provider.dart';
 void main() {
   runApp(ChangeNotifierProvider(
       create: (context) => ArticleProvider(), child: const MiniPressApp()));
-}
+} 
