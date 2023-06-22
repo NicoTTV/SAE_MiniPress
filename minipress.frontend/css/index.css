@@ -3,6 +3,8 @@ body {
   display: flex;
   flex-direction: column;
   background-color: #d7d7d7;
+  padding:0;
+  margin:0;
 }
 
 h1 {
@@ -10,6 +12,12 @@ h1 {
   color: #5b3333;
   text-align: center;
   font-size:5.0em;
+}
+
+h2 {
+  font-family:sans-serif;
+  padding: 20px;
+  font-size:2.0em;
 }
 
 nav {
@@ -90,31 +98,41 @@ nav {
   background-color: dimgrey;
 }
 
+.soustitre {
+  font-family:sans-serif;
+  font-size:2.0em;
+}
+
 ul#navigation {
+  justify-content: center;
   text-align: center;
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
   background-color: #333;
-}
-
-.soustitre {
-  font-family:sans-serif;
-  font-size:2.0em;
+  display: flex;
+  align-items: center;
 }
 
 li.bar {
   display: inline-block;
-  font-family:sans-serif;
+  font-family: sans-serif;
+  padding: 14px 50px;
+  white-space: nowrap;
+  width: 180px; /* Largeur fixe pour chaque élément li */
+  text-align: center; /* Centrer le texte horizontalement */
 }
 
 li.bar p {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: white;
   text-align: center;
   padding: 14px 16px;
-  text-decoration: none;
+  margin: 0;
+  height: 100%;
 }
 
 li.bar p:hover {

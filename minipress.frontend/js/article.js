@@ -77,7 +77,9 @@ async function displayFullArticle(article) {
 export async function displayArticles(arti) {
     activable=true;
     const articleList = document.getElementById('articles');
-    articleList.innerHTML = ''; // Réinitialisation de la liste des articles
+    //articleList.innerHTML = ''; // Réinitialisation de la liste des articles
+    const fake = document.createElement('ul');
+    fake.setAttribute('id','articles');
 
     /* Affichage pour chaque article */
     for (const article of arti) {
@@ -116,8 +118,9 @@ export async function displayArticles(arti) {
         /* Ajout d'un gestionnaire d'événement au clic sur le titre de l'article */
 
         /* Ajout de l'article à la liste */
-        articleList.appendChild(articleItem);
+        fake.appendChild(articleItem);
     }
+    articleList.innerHTML = fake.innerHTML;
 }
 
 
