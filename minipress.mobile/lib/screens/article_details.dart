@@ -73,7 +73,7 @@ class _ArticleDetails extends State<ArticleDetails> {
                     ),
                     Text(
                       ' - Article écrit le ${snapshot.data['date_de_creation']}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 12
                       )
                     )
