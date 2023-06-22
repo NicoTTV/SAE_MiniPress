@@ -27,7 +27,7 @@ class _MiniPressAppState extends State<MiniPressApp> {
             Expanded(
                 flex: 10,
                 child:
-                    Container(color: Colors.blue, child: const ListArticles()))
+                    Container(color: Color.fromARGB(255, 133, 253, 255), child: const ListArticles()))
           ],
         ),
       ),
