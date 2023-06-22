@@ -19,6 +19,7 @@ class _MiniPressAppState extends State<MiniPressApp> {
     return MaterialApp(
       title: 'Mini Press',
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: const Text('Page d\'accueil'),
         ),
