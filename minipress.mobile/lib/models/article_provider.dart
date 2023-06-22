@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:markdown/markdown.dart';
 import 'article.dart';
-import 'categorie.dart';
 
 class ArticleProvider extends ChangeNotifier {
   List<Article> articlesList = List.empty(growable: true);

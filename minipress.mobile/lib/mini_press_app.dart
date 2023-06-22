@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import './screens/list_articles.dart';
 import './screens/list_categ.dart';
+import './screens/form_keyWord_sort.dart';
 import 'models/article_provider.dart';
 
 class MiniPressApp extends StatefulWidget {
@@ -22,6 +23,8 @@ class _MiniPressAppState extends State<MiniPressApp> {
         ),
         body: Column(
           children: <Widget>[
+            const Expanded(child: ListCateg()),
+            const Expanded(child: ListArticles(),flex: 10),
             Expanded(
                 child: Container(
               decoration: const BoxDecoration(
