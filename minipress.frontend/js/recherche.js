@@ -26,13 +26,11 @@ pack.addEventListener('click', async (event) => {
 
 const pack2 = document.getElementById('rech');
 pack2.addEventListener('click', async (event) => {
-    if(activable){
         if(status2===2){
             status2=1;
             pack2.innerHTML = '<p>Titre</p>';
         } else {
             status2=2;
-            pack2.innerHTML = '<p>Titre & Auteur</p>';
+            pack2.innerHTML = '<p>Titre & Resume</p>';
         }
-    }
 });

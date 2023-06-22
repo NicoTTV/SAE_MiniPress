@@ -55,7 +55,7 @@ async function displayFullArticle(article) {
 
     /* Résumé */
     const summary = document.createElement('p');
-    summary.textContent = article.resume;
+    summary.textContent = markdownParser(article.resume);
     fullArticleContainer.appendChild(summary);
 
     /* Image */
@@ -65,7 +65,7 @@ async function displayFullArticle(article) {
 
     /* Contenu */
     const content = document.createElement('p');
-    content.textContent = article.contenu;
+    content.textContent = markdownParser(article.contenu);
     fullArticleContainer.appendChild(content);
 
     /* Ajout de l'article complet à la liste des articles */
@@ -86,6 +86,16 @@ export async function displayArticles(arti) {
         /* Titre */
         const title = document.createElement('h2');
         title.textContent = article.titre;
+        title.addEventListener('click', async (event) => {
+            const articleUrl = article.links.self.href;
+            // Récupération de l'URL de l'article
+            const response = await fetch(`http://localhost:41004${articleUrl}`)
+                .then(response => response.json())
+                .then(art => {
+                    return art.article[0];
+                });
+            await displayFullArticle(response);
+        });
         articleItem.appendChild(title);
 
         /* Date de création */
@@ -97,19 +107,13 @@ export async function displayArticles(arti) {
         const author = document.createElement('p');
         const pseudo_user = await getAuteurById(article.id_user);
         author.textContent = `Auteur : ${pseudo_user}`;
+        author.addEventListener('click',async (event)=>{
+            categoID = articles.filter(item => item.id_user && item.id_user.includes(article.id_user));
+            displayArticles(categoID);
+        });
         articleItem.appendChild(author);
 
         /* Ajout d'un gestionnaire d'événement au clic sur le titre de l'article */
-        articleItem.addEventListener('click', async (event) => {
-            const articleUrl = article.links.self.href;
-            // Récupération de l'URL de l'article
-            const response = await fetch(`http://localhost:41004${articleUrl}`)
-                .then(response => response.json())
-                .then(art => {
-                    return art.article[0];
-                });
-            await displayFullArticle(response);
-        });
 
         /* Ajout de l'article à la liste */
         articleList.appendChild(articleItem);
@@ -128,6 +132,7 @@ export function updateArticleList(categoryId) {
         fetch(`http://localhost:41004/api/categories/${categoryId}/articles`)
             .then(response => response.json())
             .then(category => {
+                category.articles.sort((a, b) => new Date(b.date_de_creation) - new Date(a.date_de_creation));
                 const articlesByCategory = category.articles;
                 categoID=articlesByCategory;// Récupérer les articles de la catégorie
                 displayArticles(articlesByCategory);
@@ -147,10 +152,37 @@ document.getElementById("myForm").addEventListener("submit", async function (eve
     if (status2 === 1) {
         categoID = filteredByTitre;
     } else {
-        let checkos = await getAuteur(inputValue);
-        console.log(articles.filter(item => item.id_user && item.id_user.includes(checkos)));
-        const filteredByAuteur = articles.filter(item => item.id_user && item.id_user.includes(checkos));
-        categoID = [...new Set([...filteredByTitre, ...filteredByAuteur])];
+        const filteredByResume = articles.filter(item => item['resume'].includes(inputValue));
+        categoID = [...new Set([...filteredByTitre, ...filteredByResume])];
     }
     displayArticles(categoID);
 });
+
+function getWordInResume(Value, artic) {
+    return new Promise((resolve, reject) => {
+        fetch(`http://localhost:41004${artic.links.self.href}`)
+            .then(response => response.json())
+            .then(data => {
+                let acte = data.article['0']['resume'];
+                if (acte.includes(Value)) {
+                    resolve(true);
+                } else {
+                    resolve(false);
+                }
+            })
+            .catch(error => {
+                console.error('Une erreur s\'est produite lors de la récupération des articles:', error);
+                reject(error);
+            });
+    });
+}
+
+function markdownParser(text){
+    const toHTML = text
+        .replace(/^### (.*$)/gim, '<h3>$1</h3>') // h3 tag
+        .replace(/^## (.*$)/gim, '<h2>$1</h2>') // h2 tag
+        .replace(/^# (.*$)/gim, '<h1>$1</h1>') // h1 tag
+        .replace(/\*\*(.*)\*\*/gim, '<b>$1</b>') // bold text
+        .replace(/\*(.*)\*/gim, '<i>$1</i>'); // italic text
+    return toHTML.trim(); // using trim method to remove whitespace
+}
