@@ -14,7 +14,6 @@ class MiniPressApp extends StatefulWidget {
 class _MiniPressAppState extends State<MiniPressApp> {
   @override
   Widget build(BuildContext context) {
-    Provider.of<ArticleProvider>(context, listen: false).fetchArticles();
     return MaterialApp(
       title: 'Mini Press',
       home: Scaffold(
@@ -23,11 +22,30 @@ class _MiniPressAppState extends State<MiniPressApp> {
         ),
         body: Column(
           children: <Widget>[
-            const Expanded(child: ListCateg()),
             Expanded(
-                flex: 10,
-                child:
-                    Container(color: Color.fromARGB(255, 133, 253, 255), child: const ListArticles()))
+                child: Container(
+              decoration: const BoxDecoration(
+                color: Color(0xFFE9F1FA),
+                boxShadow: [
+                  BoxShadow(
+                      color: Color.fromARGB(40, 0, 0, 0),
+                      spreadRadius: 1,
+                      blurRadius: 10)
+                ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const FormKeyWordSort(),
+                  ElevatedButton(
+                      onPressed: () {
+                        Provider.of<ArticleProvider>(context, listen: false)
+                            .fetchArticleByDate();
+                      },
+                      child: const Text('Trier par date de création'))
+                ],
+              ),
+            )),
           ],
         ),
       ),

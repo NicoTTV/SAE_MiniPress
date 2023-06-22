@@ -8,6 +8,7 @@ html, body, main {
     --over-background-color: #00A0D6;
     --shadow-color: rgba(0, 0, 0, 0.2);
     --color-font-button: #FFFFFF;
+    --alert-danger-color: #FF595A;
     color: var(--color-font);
     font-family: 'Roboto', sans-serif;
 }
@@ -60,7 +61,7 @@ a.button {
 
 input {
     background-color: var(--secondary-color);
-    border: none;
+    border: 1px solid var(--secondary-color);
     box-shadow: 0 2px 8px 0px var(--shadow-color);
     transition: box-shadow .2s ease-in-out, letter-spacing .4s ease;
     outline: none;
@@ -69,16 +70,16 @@ input {
     font-size: .7em;
 }
 
-input:focus {
+input:focus, .form-group textarea:focus {
     box-shadow: 0 2px 8px 2px var(--shadow-color);
     letter-spacing: 1px;
 }
 
-input:hover {
+input:hover, .form-group textarea:hover {
     box-shadow: 0 2px 8px 2px var(--shadow-color);
 }
 
-a#connexion,button#connexion{
+a#connexion,button#connexion, .sending button, .sendingButton, a#deconnexion {
     background-color: var(--primary-color);
     color: var(--color-font-button);
     box-shadow: 0 2px 8px 0px var(--shadow-color);
@@ -86,13 +87,19 @@ a#connexion,button#connexion{
     border-radius: 10px;
     transition: background-color .2s ease-in-out;
     margin-left: 60px;
+    border: none;
+    cursor: pointer;
+}
+
+.articleButton {
+    margin: 0;
 }
 
 nav#nav-account {
     margin-left: 100px;
 }
 
-a#connexion:hover {
+a#connexion:hover, .sendingButton:hover, a#deconnexion:hover {
     background-color: var(--over-background-color);
     box-shadow: 0 2px 8px 2px var(--shadow-color);
 }
@@ -127,6 +134,23 @@ main {
     width: 100%;
     height: 100%;
     gap: 20px;
+}
+
+#article-form {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    box-shadow: 0 2px 15px 1px var(--shadow-color);
+    margin-top: 60px;
+    padding: 20px;
+    min-height: 500px;
+    width: 550px;
+    max-height: 600px;
+    height: inherit;
 }
 
 .sign .title {
@@ -165,7 +189,14 @@ button#connexion {
     height: 70px;
 }
 
-button#connexion:hover {
+.sending button {
+    width: 125px;
+    height: 55px;
+    font-size: 1.1em;
+    border: none;
+}
+
+button#connexion:hover, .sending button:hover {
     background-color: var(--over-background-color);
     box-shadow: 0 2px 8px 2px var(--shadow-color);
 }
@@ -190,4 +221,211 @@ a {
 
 .icon {
     color: var(--color-font);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+}
+
+.form-group input {
+    background-color: #FFFFFF;
+    width: 100%;
+    padding: 8px;
+    font-size: 1em;
+}
+
+.form-group label {
+    display: flex;
+    font-size: 1.1em;
+    margin-right: 20px;
+}
+
+.form-group textarea {
+    width: 450px;
+    padding: 8px;
+    font-size: 1em;
+    max-width: 450px;
+    max-height: 100px;
+    border-radius: 5px;
+    border: 1px solid var(--secondary-color);
+    box-shadow: 0 2px 8px 0px var(--shadow-color);
+    transition: box-shadow .2s ease-in-out, letter-spacing .2s ease;
+}
+
+.form-title {
+    text-align: center;
+    margin-bottom: -10px;
+}
+
+.sending {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.sending button {
+}
+
+.sending a {
+}
+
+.alert {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    color: var(--color-font);
+    font-size: 1.1em;
+    box-shadow: 0 2px 8px 0px var(--shadow-color);
+}
+
+.alert-danger {
+    background-color: var(--alert-danger-color);
+}
+
+select {
+    width: 100%;
+    padding: 8px;
+    font-size: 1em;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    border: 1px solid var(--primary-color);
+    box-shadow: 0 2px 8px 0px var(--shadow-color);
+    transition: box-shadow .2s ease-in-out, letter-spacing .2s ease;
+}
+
+select:focus {
+    outline: none;
+    box-shadow: 0 2px 8px 2px var(--shadow-color);
+}
+
+select:hover {
+    box-shadow: 0 2px 8px 2px var(--shadow-color);
+}
+
+#categorie {
+    background-color: #00abe4;
+    color: white;
+    font-size: 1em;
+    border-radius: 5px;
+}
+
+#description {
+    width: 500px;
+}
+
+.barre2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 1000px;
+    height: 150px;
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    box-shadow: 0 2px 15px 1px var(--shadow-color);
+    margin-top: 60px;
+    padding: 20px;
+}
+
+.list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 0 50px;
+    width: 90em;
+    margin-bottom: 50px;
+}
+
+.case {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-width: 40%;
+    max-width: 100%;
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    box-shadow: 0 2px 15px 0px var(--shadow-color);
+    margin-top: 60px;
+    padding: 20px;
+}
+
+.barre {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 1000px;
+    height: 100px;
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    box-shadow: 0 2px 15px 1px var(--shadow-color);
+    margin-top: 60px;
+    padding: 20px;
+}
+
+#aligne {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+#aligne form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+#aligne form label {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+#aligne form select {
+    width: 200px;
+}
+
+#aligne form input[type="submit"] {
+    padding: 5px 10px;
+    background-color: #00ABE4;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input#filtre {
+    background-color: var(--primary-color);
+    color: var(--color-font-button);
+    box-shadow: 0 2px 8px 0px var(--shadow-color);
+    padding: 10px 15px;
+    border-radius: 10px;
+    animation: none;
+    transition: box-shadow .2s ease-in-out;
+    font-size: 1em;
+}
+
+input#filtre:hover {
+    animation: none;
+    background-color: var(--over-background-color);
+    box-shadow: 0 2px 8px 2px var(--shadow-color);
+}
+input#filtre:focus {
+    box-shadow: 0 2px 8px 2px var(--shadow-color);
+    letter-spacing: 0px;
 }

@@ -13,20 +13,28 @@ class ArticlePreview extends StatefulWidget {
 class _ArticlePreview extends State<ArticlePreview> {
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(widget.article.titre),
-      subtitle: Column(
-        children: [
-          Text(widget.article.dateCreation),
-          Text(widget.article.auteur)
-        ],
-      ),
-      onTap: () async {
-        await Navigator.push(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: const BoxDecoration(
+            border: Border(bottom: BorderSide(color: Color(0xFFFF595A)))),
+        child: ListTile(
+          textColor: Colors.black,
+          title: Text(widget.article.titre),
+          subtitle: Column(
+            children: [
+              Text(widget.article.dateCreation),
+              Text(widget.article.auteur)
+            ],
+          ),
+          onTap: () async {
+            await Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => ArticleDetails(article: widget.article))
         );
-      },
+          },
+        ),
+      ),
     );
   }
 }

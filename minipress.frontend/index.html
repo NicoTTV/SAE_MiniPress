@@ -1,26 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
 
-<head>
-    <meta charset="UTF-8" />
-    <title>MiniPress</title>
-    <link rel="stylesheet" href="css/article.css" />
-    <script type="module" src="js/article.js" defer></script>
-</head>
+    <head>
+        <meta charset="UTF-8" />
+        <title>MiniPress</title>
+        <link rel="stylesheet" href="css/article.css" />
+        <script type="module" src="js/user.js" defer></script>
+        <script type="module" src="js/article.js" defer></script>
+        <script type="module" src="js/recherche.js" defer></script>
+        <script type="module" src="js/categorie.js" defer></script>
+    </head>
 
-<body>
+    <body>
     <h1>MiniPress</h1>
+    <div>
+    <ul id="navigation">
+        <li class="bar" id="date"><p>Date</p></li>
+        <li class="bar" id="texto">
+            <form id="myForm">
+                <input type="text" id="myInput">
+                <input type="submit" value="Valider">
+            </form>
+        </li>
+        <li class="bar" id="rech"><p>Titre</p></li>
+    </ul>
+    </div>
+
     <h2>Articles</h2>
+
     <div id="article-list">
         <ul id="articles">
         </ul>
     </div>
 
+    <h2>Catégories</h2>
     <div id="category-list">
-        <h2>Catégories</h2>
         <ul id="categories">
         </ul>
     </div>
-</body>
+    </body>
 
-</html>
+    </html>

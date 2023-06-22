@@ -1,26 +1,49 @@
 <?php
 
-namespace actions;
+namespace minipress\api\actions;
 
-use models\Article;
 
-require_once __DIR__ . '/../models/article.php';
+
+use minipress\api\models\Article;
+use minipress\api\services\article\ArticleService;
+use minipress\api\services\exceptions\ArticleNotFoundException;
+use Slim\Exception\HttpInternalServerErrorException;
+use Slim\Routing\RouteContext;
 
 class ArticleCompletAction {
     public function __invoke($request, $response, $args) {
         // Liste des catégories
         $id=$args['id'];
-        $articles = Article::all()->where('id_article','=',$id);
+        $articleService = new ArticleService();
+        try {
+            $article = $articleService->getArticleById($id);
+        } catch (ArticleNotFoundException $e) {
+            throw new HttpInternalServerErrorException($request, $e->getMessage());
+        }
+
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+
+        $articleFormated = [
+            $article,
+            'links' => [
+                'articles' => [
+                    'href' => $routeParser->urlFor('articles')
+                ]
+            ],
+        ];
+
+        $dataFormated = [
+            'type' => 'ressource',
+            'article' => $articleFormated
+        ];
 
         // Convertir le tableau en JSON
-        $json = json_encode($articles);
+        $json = json_encode($dataFormated);
 
         // Ajouter le contenu JSON à la réponse
         $response->getBody()->write($json);
 
         // Définir le type de contenu de la réponse comme JSON
-        $response = $response->withHeader('Content-Type', 'application/json');
-
-        return $response;
+        return $response->withHeader('Content-Type', 'application/json');
     }
 }

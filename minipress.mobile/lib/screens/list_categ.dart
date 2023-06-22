@@ -22,13 +22,24 @@ class _ListCateg extends State<ListCateg> {
         future: categProvider.fetchCateg(),
         builder: ((context, snapshot) {
           if (snapshot.hasData) {
-            return ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: snapshot.data?.length,
-              itemBuilder: (context, index) {
-                // print(snapshot.data![index].titre);
-                return CategPreview(categorie: snapshot.data![index]);
-              },
+            return Container(
+              decoration: const BoxDecoration(
+                color: Color(0xFFE9F1FA),
+                boxShadow: [
+                  BoxShadow(
+                      color: Color.fromARGB(70, 0, 0, 0),
+                      spreadRadius: 1,
+                      blurRadius: 10)
+                ],
+              ),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: snapshot.data?.length,
+                itemBuilder: (context, index) {
+                  // print(snapshot.data![index].titre);
+                  return CategPreview(categorie: snapshot.data![index]);
+                },
+              ),
             );
           } else {
             return const Center(child: CircularProgressIndicator());

@@ -2,6 +2,9 @@
 
 namespace minipress\app\actions;
 
+use minipress\app\services\exceptions\ExceptionTokenGenerate;
+use minipress\app\services\utils\Auth;
+use minipress\app\services\utils\CsrfService;
 use Slim\Exception\HttpInternalServerErrorException;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
@@ -16,13 +19,15 @@ class GetMainAction extends AbstractAction
     public function __invoke(Request $rq, Response $rs, array $args): Response
     {
         $twig = Twig::fromRequest($rq);
+        $user = Auth::getCurrentUser();
         try {
-            return $twig->render($rs, 'acceuil.twig');
-        } catch (LoaderError $e) {
+            $csrf = CsrfService::generate();
+        } catch (ExceptionTokenGenerate $e) {
             throw new HttpInternalServerErrorException($rq, $e->getMessage());
-        } catch (RuntimeError $e) {
-            throw new HttpInternalServerErrorException($rq, $e->getMessage());
-        } catch (SyntaxError $e) {
+        }
+        try {
+            return $twig->render($rs, 'acceuil.twig',['user'=>$user,'csrf'=>$csrf]);
+        } catch (LoaderError|RuntimeError|SyntaxError $e) {
             throw new HttpInternalServerErrorException($rq, $e->getMessage());
         }
     }
