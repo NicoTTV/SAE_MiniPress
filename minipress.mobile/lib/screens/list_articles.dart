@@ -24,11 +24,14 @@ class _ListArticles extends State<ListArticles> {
             future: articleProvider.readData(),
             builder: ((context, snapshot) {
               if (snapshot.hasData) {
-                return ListView.builder(
-                  itemCount: snapshot.data?.length,
-                  itemBuilder: (context, index) {
-                    return ArticlePreview(article: snapshot.data![index]);
-                  },
+                return Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  child: ListView.builder(
+                    itemCount: snapshot.data?.length,
+                    itemBuilder: (context, index) {
+                      return ArticlePreview(article: snapshot.data![index]);
+                    },
+                  ),
                 );
               } else {
                 return const Center(child: CircularProgressIndicator());
