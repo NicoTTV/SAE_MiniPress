@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:markdown/markdown.dart';
 import 'article.dart';
@@ -13,6 +12,7 @@ class ArticleProvider extends ChangeNotifier {
   Future<List<Article>> readData() {
     return Future.value(articlesList);
   }
+
   Future<dynamic> readArticle() {
     return Future.value(article);
   }
@@ -72,16 +72,15 @@ class ArticleProvider extends ChangeNotifier {
     });
     notifyListeners();
   }
-  
+
   fetchDetailsArticle(url) async {
-    var response = await http.get(Uri.parse(
-      'http://docketu.iutnc.univ-lorraine.fr:41004${url}'
-    ));
-    
+    var response = await http
+        .get(Uri.parse('http://docketu.iutnc.univ-lorraine.fr:41004${url}'));
+
     if (response.statusCode == 200) {
       var detailsArticle = json.decode(response.body);
       article = detailsArticle['article']['0'];
-    }  
+    }
     notifyListeners();
   }
 }
