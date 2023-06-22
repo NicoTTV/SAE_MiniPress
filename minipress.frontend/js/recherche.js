@@ -1,9 +1,11 @@
 import { activable,categoID, displayArticles } from "./article.js";
 
+
 let status=1;
 export let status2 =1;
-
 const pack = document.getElementById('date');
+
+
 pack.addEventListener('click', async (event) => {
     if(activable){
     let bob = categoID.reverse();
@@ -20,6 +22,7 @@ pack.addEventListener('click', async (event) => {
         }
     }
 });
+
 
 const pack2 = document.getElementById('rech');
 pack2.addEventListener('click', async (event) => {
