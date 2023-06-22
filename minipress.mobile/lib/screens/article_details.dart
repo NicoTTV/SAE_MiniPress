@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:minipress_mobile/models/article_provider.dart';
 import 'package:provider/provider.dart';
 import '../models/article.dart';
@@ -51,9 +52,8 @@ class _ArticleDetails extends State<ArticleDetails> {
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 24),
                               ),
-                              Text(
-                                snapshot.data['resume'],
-                                style: const TextStyle(fontSize: 18),
+                              MarkdownBody(
+                                data: snapshot.data['resume'],
                               ),
                             ],
                           ),
@@ -65,9 +65,8 @@ class _ArticleDetails extends State<ArticleDetails> {
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 24),
                               ),
-                              Text(
-                                snapshot.data['contenu'],
-                                style: const TextStyle(fontSize: 18),
+                              MarkdownBody(
+                                data: snapshot.data['contenu'],
                               ),
                             ],
                           ),
