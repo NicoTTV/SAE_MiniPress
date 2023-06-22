@@ -42,7 +42,7 @@ function displayCategories(categories) {
         categoryLink.href = '#'; // Ajout d'un lien fictif pour le fonctionnement des liens
 
         /* Attribution de l'ID de catégorie en tant qu'attribut de données pour le lien */
-        categoryLink.dataset.categoryId = category.id;
+        categoryLink.dataset.categoryId = category.id_categorie;
 
         /* Ajout d'un gestionnaire d'événement au clic sur le lien de catégorie */
         categoryLink.addEventListener('click', (event) => {

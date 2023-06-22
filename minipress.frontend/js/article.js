@@ -118,9 +118,11 @@ export function updateArticleList(categoryId) {
         displayArticles(articles); // Afficher tous les articles
     } else {
         // Récupérer les articles de la catégorie sélectionnée
-        fetch(`http://localhost:41004/api/categories/${categoryId}`)
+        console.log(categoryId);
+        fetch(`http://localhost:41004/api/categories/${categoryId}/articles`)
             .then(response => response.json())
             .then(category => {
+                console.log(category.articles);
                 const articlesByCategory = category.articles; // Récupérer les articles de la catégorie
                 displayArticles(articlesByCategory);
             })
